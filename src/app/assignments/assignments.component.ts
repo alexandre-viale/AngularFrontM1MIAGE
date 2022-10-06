@@ -1,6 +1,6 @@
 import { Component,Input, OnInit } from '@angular/core';
 import { Assignment } from './assignment.model';
-
+import { AssignmentsService } from '../shared/assignments.service';
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',
@@ -11,27 +11,13 @@ export class AssignmentsComponent implements OnInit {
   ajoutActive = false;
   formVisible = false;
   assignmentSelected : any = undefined;
-  assignments:Assignment[] = [
-    {
-      nom: "TP de Java",
-      dateDeRendu: new Date("2021-03-01"),
-      rendu: true
-    }, {
-      nom: "TP de React",
-      dateDeRendu: new Date("2021-09-28"),
-      rendu: false
-    }, {
-      nom: "TP d'Angular",
-      dateDeRendu: new Date("2021-09-22"),
-      rendu: true
-    },
-  ]
-  constructor() { }
+  assignments : Assignment[] = []
+  constructor(private assignmentsService: AssignmentsService) { }
   
   ngOnInit(): void {
-    setTimeout(() => {
-      this.ajoutActive = true;
-    }, 2000);
+    this.assignmentsService.getAssignments().subscribe((assignments) => {
+      this.assignments = assignments;
+    });
   }
 
   assignmentClick(assignment:Assignment) {
@@ -42,13 +28,8 @@ export class AssignmentsComponent implements OnInit {
     this.formVisible = true;
   }
 
-  onDeleteAssignment(assignment:Assignment) {
-    this.assignments = this.assignments.filter((a) => a.nom !== assignment.nom);
-    this.assignmentSelected = undefined;
-  }
-
   onNewAssignment(assignment:Assignment) {
-    this.assignments.push(assignment);
+    this.assignmentsService.createAssignment(assignment).subscribe();
     this.formVisible = false;
   }
  
