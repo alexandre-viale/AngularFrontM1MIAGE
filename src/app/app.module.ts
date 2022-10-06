@@ -16,6 +16,10 @@ import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
 import { FormsModule } from '@angular/forms';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 
 
 @NgModule({
@@ -23,7 +27,8 @@ import { AssignmentDetailComponent } from './assignments/assignment-detail/assig
     AppComponent,
     AssignmentsComponent,
     RenduDirective,
-    AssignmentDetailComponent
+    AssignmentDetailComponent,
+    AddAssignmentComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +43,9 @@ import { AssignmentDetailComponent } from './assignments/assignment-detail/assig
     MatDatepickerModule,
     MatNativeDateModule,
     MatListModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

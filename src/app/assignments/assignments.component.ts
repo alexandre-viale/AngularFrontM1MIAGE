@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,Input, OnInit } from '@angular/core';
 import { Assignment } from './assignment.model';
 
 @Component({
@@ -9,8 +9,8 @@ import { Assignment } from './assignment.model';
 export class AssignmentsComponent implements OnInit {
   titre = 'Mon application sur les assignments !'
   ajoutActive = false;
-  nomDevoir:string = ""; 
-  dateDeRendu!:Date;
+  formVisible = false;
+  assignmentSelected : any = undefined;
   assignments:Assignment[] = [
     {
       nom: "TP de Java",
@@ -34,13 +34,22 @@ export class AssignmentsComponent implements OnInit {
     }, 2000);
   }
 
-  onSubmit(nom:string) {
-    const newAssignment = new Assignment();
-    newAssignment.nom = nom;
-    console.log(this.dateDeRendu);
-    newAssignment.dateDeRendu = this.dateDeRendu;
-    newAssignment.rendu = false;
-    this.assignments.push(newAssignment);
+  assignmentClick(assignment:Assignment) {
+    this.assignmentSelected = assignment;
+  }
+
+  onAddAssignmentBtnClick() {
+    this.formVisible = true;
+  }
+
+  onDeleteAssignment(assignment:Assignment) {
+    this.assignments = this.assignments.filter((a) => a.nom !== assignment.nom);
+    this.assignmentSelected = undefined;
+  }
+
+  onNewAssignment(assignment:Assignment) {
+    this.assignments.push(assignment);
+    this.formVisible = false;
   }
  
 }

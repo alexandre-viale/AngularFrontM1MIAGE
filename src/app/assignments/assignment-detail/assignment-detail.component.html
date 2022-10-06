@@ -1,1 +1,11 @@
-<p>assignment-detail works!</p>
+<div class="container">
+  <mat-card *ngIf="assignmentTransmitted">
+    <mat-card-title>{{assignmentTransmitted.nom}}</mat-card-title>
+    <mat-card-subtitle>{{assignmentTransmitted.dateDeRendu | date}}</mat-card-subtitle>
+    <mat-checkbox *ngIf="!assignmentTransmitted.rendu"
+                (click)="onAssignmentSent()"
+  >Devoir rendu</mat-checkbox>
+  <button mat-button color="warn" (click)="onAssignmentDeleted()">Supprimer</button>
+  </mat-card>
+  
+</div>
