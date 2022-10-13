@@ -1,8 +1,9 @@
 <mat-toolbar>
   <mat-toolbar-row>
-    <button mat-button><mat-icon>home</mat-icon></button>
+    <a routerLink="/home"><button mat-button><mat-icon>home</mat-icon></button></a>
+    <h1>{{title}}</h1>
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="container">
-<app-assignments></app-assignments>
+  <router-outlet></router-outlet>
 </div>

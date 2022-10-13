@@ -20,15 +20,26 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
+import { RouterModule, Routes } from '@angular/router';
+import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
+import { AuthGuard } from './shared/auth.guard';
 
 
+const appRoutes: Routes = [
+  { path: 'home', component: AssignmentsComponent },
+  { path: 'add', component: AddAssignmentComponent },
+  { path: '', component: AddAssignmentComponent },
+  { path: 'assignment/:id', component: AssignmentDetailComponent },
+  { path: 'assignment/:id/edit', component: EditAssignmentComponent, canActivate: [AuthGuard] },
+];
 @NgModule({
   declarations: [
     AppComponent,
     AssignmentsComponent,
     RenduDirective,
     AssignmentDetailComponent,
-    AddAssignmentComponent
+    AddAssignmentComponent,
+    EditAssignmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,9 +56,10 @@ import { AddAssignmentComponent } from './assignments/add-assignment/add-assignm
     MatListModule,
     MatToolbarModule,
     MatCardModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

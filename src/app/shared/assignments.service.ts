@@ -11,15 +11,18 @@ export class AssignmentsService {
     {
       nom: "TP de Java",
       dateDeRendu: new Date("2021-03-01"),
-      rendu: true
+      rendu: true,
+      id: 3
     }, {
       nom: "TP de React",
       dateDeRendu: new Date("2021-09-28"),
-      rendu: false
+      rendu: false,
+      id: 2
     }, {
       nom: "TP d'Angular",
       dateDeRendu: new Date("2021-09-22"),
-      rendu: true
+      rendu: true,
+      id: 1
     },
   ]
   constructor( private loggingService: LoggingService) { }
@@ -37,6 +40,9 @@ export class AssignmentsService {
     this.assignments.push(assignment);
     this.loggingService.log(assignment.nom, "created");
     return of("Assignment created");
+  }
+  getAssignment(id:number): Observable<any> {
+    return of(this.assignments.find((assignment) => assignment.id === id));
   }
 
   updateAssignment(assignment:Assignment): Observable<string> {

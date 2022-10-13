@@ -25,12 +25,12 @@ export class AssignmentsComponent implements OnInit {
   }
 
   onAddAssignmentBtnClick() {
-    this.formVisible = true;
+    // this.formVisible = true;
   }
 
-  onNewAssignment(assignment:Assignment) {
-    this.assignmentsService.createAssignment(assignment).subscribe();
-    this.formVisible = false;
-  }
+  // onNewAssignment(assignment:Assignment) {
+  //   this.assignmentsService.createAssignment(assignment).subscribe();
+  //   this.formVisible = false;
+  // }
  
 }

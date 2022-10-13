@@ -5,6 +5,7 @@
     <mat-checkbox *ngIf="!assignmentTransmitted.rendu"
                 (click)="onAssignmentSent()"
   >Devoir rendu</mat-checkbox>
+  <button mat-stroked-button color="primary" (click)="onClickEdit()">Edit</button>
   <button mat-button color="warn" (click)="onAssignmentDeleted()">Supprimer</button>
   </mat-card>
 
