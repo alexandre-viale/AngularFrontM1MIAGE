@@ -1,3 +1,6 @@
 .container{
   margin: 10px 20px 0px 20px;
 }
+mat-toolbar-row{
+  justify-content: space-between;
+}

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { Assignment } from '../assignment.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/auth.service';
 @Component({
   selector: 'app-assignment-detail',
   templateUrl: './assignment-detail.component.html',
@@ -11,10 +12,11 @@ export class AssignmentDetailComponent implements OnInit {
   @Input() assignmentTransmitted!: any;
   constructor(private assignmentsService : AssignmentsService,
               private activatedRoute: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.getAssignment()
+    this.getAssignment();
   }
 
   getAssignment() {
@@ -40,4 +42,8 @@ export class AssignmentDetailComponent implements OnInit {
     {queryParams: {nom: this.assignmentTransmitted.nom}, fragment: 'edition'});
   }
   
+  isAdmin() {
+    return this.authService.isAdmin();
+  }
+
 }

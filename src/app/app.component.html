@@ -2,6 +2,10 @@
   <mat-toolbar-row>
     <a routerLink="/home"><button mat-button><mat-icon>home</mat-icon></button></a>
     <h1>{{title}}</h1>
+    <h4 *ngIf="!isLogged; else logoutButton">Non connecté</h4>
+    <ng-template #logoutButton>
+      <button mat-raised-button (click)="logOut()" >
+        Déconnexion</button></ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="container">

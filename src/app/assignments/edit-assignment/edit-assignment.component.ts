@@ -23,14 +23,11 @@ export class EditAssignmentComponent implements OnInit {
    this.getAssignment();
  }
  getAssignment() {
-  // on récupère l'id dans le snapshot passé par le routeur
-  // le "+" force l'id de type string en "number"
   const id = +this.route.snapshot.params['id'];
  
   this.assignmentsService.getAssignment(id).subscribe((assignment) => {
     if (!assignment) return;
     this.assignment = assignment;
-    // Pour pré-remplir le formulaire
     this.nomAssignment = assignment.nom;
     this.dateDeRendu = assignment.dateDeRendu;
   });
@@ -38,7 +35,6 @@ export class EditAssignmentComponent implements OnInit {
 onSaveAssignment() {
   if (!this.assignment) return;
 
-  // on récupère les valeurs dans le formulaire
   this.assignment.nom = this.nomAssignment;
   this.assignment.dateDeRendu = this.dateDeRendu;
   this.assignmentsService
@@ -46,7 +42,6 @@ onSaveAssignment() {
     .subscribe((message) => {
       console.log(message);
 
-      // navigation vers la home page
       this.router.navigate(['/home']);
     });
 }
