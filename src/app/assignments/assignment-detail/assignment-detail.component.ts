@@ -20,28 +20,33 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
   getAssignment() {
-    const id = +this.activatedRoute.snapshot.params['id'];
+    const id = this.activatedRoute.snapshot.params['id'];
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-      this.assignmentTransmitted = assignment;
       console.log(assignment);
+      this.assignmentTransmitted = assignment;
     });
   }
 
   onAssignmentSent() {
-    this.assignmentsService.updateAssignment(this.assignmentTransmitted).subscribe();
-    this.router.navigate(['/home']);
+    this.assignmentsService.updateAssignment(this.assignmentTransmitted).subscribe((message) => {
+      console.log(message);
+      this.router.navigate(['/home']);
+    });
   }
+
   onAssignmentDeleted() {
-    this.assignmentsService.deleteAssignment(this.assignmentTransmitted).subscribe();
-    this.assignmentTransmitted = undefined;
-    this.router.navigate(['/home']);
+    this.assignmentsService.deleteAssignment(this.assignmentTransmitted).subscribe(() => {
+      this.assignmentTransmitted = undefined;
+      this.router.navigate(['/home']);
+    });
+    
   }
 
   onClickEdit() {
-    this.router.navigate(['/assignment',this.assignmentTransmitted.id, 'edit'],
+    this.router.navigate(['/assignment',this.assignmentTransmitted._id,'edit'],
     {queryParams: {nom: this.assignmentTransmitted.nom}, fragment: 'edition'});
   }
-  
+ 
   isAdmin() {
     return this.authService.isAdmin();
   }

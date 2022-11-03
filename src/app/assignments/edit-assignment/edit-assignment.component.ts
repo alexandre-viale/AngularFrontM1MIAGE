@@ -23,9 +23,10 @@ export class EditAssignmentComponent implements OnInit {
    this.getAssignment();
  }
  getAssignment() {
-  const id = +this.route.snapshot.params['id'];
+  const id = this.route.snapshot.params['id'];
  
   this.assignmentsService.getAssignment(id).subscribe((assignment) => {
+    console.log('assignment:', assignment);
     if (!assignment) return;
     this.assignment = assignment;
     this.nomAssignment = assignment.nom;

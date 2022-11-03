@@ -25,7 +25,7 @@ import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assi
 import { AuthGuard } from './shared/auth.guard';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LoginPageComponent } from './login-page/login-page.component';
-
+import { HttpClientModule } from '@angular/common/http';
 const appRoutes: Routes = [
   { path: 'home', component: AssignmentsComponent, canActivate: [AuthGuard] },
   {
@@ -76,6 +76,7 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     RouterModule.forRoot(appRoutes),
     MatSlideToggleModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
