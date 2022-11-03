@@ -7,6 +7,14 @@ import { AssignmentsService } from '../shared/assignments.service';
   styleUrls: ['./assignments.component.css']
 })
 export class AssignmentsComponent implements OnInit {
+  page: number=1;
+  limit: number=10;
+  totalDocs!: number;
+  totalPages!: number;
+  hasPrevPage!: boolean;
+  prevPage!: number;
+  hasNextPage!: boolean;
+  nextPage!: number; 
   titre = 'Mon application sur les assignments !'
   ajoutActive = false;
   formVisible = false;
@@ -15,22 +23,25 @@ export class AssignmentsComponent implements OnInit {
   constructor(private assignmentsService: AssignmentsService) { }
   
   ngOnInit(): void {
-    this.assignmentsService.getAssignments().subscribe((assignments) => {
-      this.assignments = assignments;
-    });
+    this.assignmentsService.getAssignmentsPagine(this.page, this.limit)
+     .subscribe(data => {
+       this.assignments = data.docs;
+       this.page = data.page;
+       this.limit = data.limit;
+       this.totalDocs = data.totalDocs;
+       this.totalPages = data.totalPages;
+       this.hasPrevPage = data.hasPrevPage;
+       this.prevPage = data.prevPage;
+       this.hasNextPage = data.hasNextPage;
+       this.nextPage = data.nextPage;
+       console.log("données reçues");
+     });
+
+    
   }
 
   assignmentClick(assignment:Assignment) {
     this.assignmentSelected = assignment;
   }
-
-  onAddAssignmentBtnClick() {
-    // this.formVisible = true;
-  }
-
-  // onNewAssignment(assignment:Assignment) {
-  //   this.assignmentsService.createAssignment(assignment).subscribe();
-  //   this.formVisible = false;
-  // }
  
 }

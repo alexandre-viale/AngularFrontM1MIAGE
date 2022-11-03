@@ -2,53 +2,42 @@ import { Injectable } from '@angular/core';
 import { Assignment } from '../assignments/assignment.model';
 import { Observable, of } from 'rxjs';
 import { LoggingService } from './logging.service';
-
+import { HttpClient } from '@angular/common/http';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AssignmentsService {
-  assignments:Assignment[] = [
-    {
-      nom: "TP de Java",
-      dateDeRendu: new Date("2021-03-01"),
-      rendu: true,
-      id: 3
-    }, {
-      nom: "TP de React",
-      dateDeRendu: new Date("2021-09-28"),
-      rendu: false,
-      id: 2
-    }, {
-      nom: "TP d'Angular",
-      dateDeRendu: new Date("2021-09-22"),
-      rendu: true,
-      id: 1
-    },
-  ]
-  constructor( private loggingService: LoggingService) { }
+  assignments: Assignment[] = []
+  uri = 'http://localhost:8010/api/assignments';
+
+  constructor(
+    private loggingService: LoggingService,
+    private http: HttpClient
+  ) {}
 
   getAssignments(): Observable<Assignment[]> {
-    return of(this.assignments);
-  }
-  deleteAssignment(assignment:Assignment): Observable<string> {
-    const assginmentPosition = this.assignments.indexOf(assignment);
-    this.assignments.splice(assginmentPosition,1);
-    this.loggingService.log(assignment.nom, "deleted");
-    return of("Assignment deleted");
-  }
-  createAssignment(assignment:Assignment): Observable<string> {
-    this.assignments.push(assignment);
-    this.loggingService.log(assignment.nom, "created");
-    return of("Assignment created");
-  }
-  getAssignment(id:number): Observable<any> {
-    return of(this.assignments.find((assignment) => assignment.id === id));
+    return this.http.get<Assignment[]>(this.uri);
   }
 
-  updateAssignment(assignment:Assignment): Observable<string> {
-    const index = this.assignments.findIndex((a) => a.nom === assignment.nom);
-    this.assignments[index].rendu = true;
-    this.loggingService.log(assignment.nom, "updated");
-    return of("Assignment updated");
+  deleteAssignment(assignment: Assignment): Observable<string> {
+    this.loggingService.log(assignment.nom, 'deleted');
+    return this.http.delete(`${this.uri}/${assignment._id}`, { responseType: 'text' });
+  }
+
+  createAssignment(assignment: Assignment): Observable<any> {
+    return this.http.post(this.uri, assignment);
+  }
+
+  getAssignment(id: string): Observable<any> {
+    return this.http.get(`${this.uri}/${id}`);
+  }
+
+  updateAssignment(assignment: Assignment): Observable<any> {
+    assignment.rendu = true;
+    return this.http.put<Assignment>(this.uri,assignment)
+  }
+
+  getAssignmentsPagine(page: number): Observable<any> {
+    return this.http.get(`${this.uri}/page/${page}`);
   }
 }
