@@ -37,7 +37,8 @@ export class AssignmentsService {
     return this.http.put<Assignment>(this.uri,assignment)
   }
 
-  getAssignmentsPagine(page: number): Observable<any> {
-    return this.http.get(`${this.uri}/page/${page}`);
+  getAssignmentsPaginated(page: number, limit: number): Observable<any> {
+    console.log(page, limit);
+    return this.http.get(this.uri,{params: {page: page.toString(), limit: limit.toString()}});
   }
 }

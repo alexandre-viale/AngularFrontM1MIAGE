@@ -23,21 +23,26 @@ export class AssignmentsComponent implements OnInit {
   constructor(private assignmentsService: AssignmentsService) { }
   
   ngOnInit(): void {
-    this.assignmentsService.getAssignmentsPagine(this.page, this.limit)
-     .subscribe(data => {
-       this.assignments = data.docs;
-       this.page = data.page;
-       this.limit = data.limit;
-       this.totalDocs = data.totalDocs;
-       this.totalPages = data.totalPages;
-       this.hasPrevPage = data.hasPrevPage;
-       this.prevPage = data.prevPage;
-       this.hasNextPage = data.hasNextPage;
-       this.nextPage = data.nextPage;
-       console.log("données reçues");
-     });
+    this.getAssignments(this.page, this.limit);
+  }
 
-    
+  paginatorChanged(event: any) {
+    this.getAssignments(event.pageIndex + 1, event.pageSize);
+  }
+
+  getAssignments(page: number, limit: number) {
+    this.assignmentsService.getAssignmentsPaginated(page, limit)
+    .subscribe(data => {
+      this.assignments = data.docs;
+      this.page = data.page;
+      this.limit = data.limit;
+      this.totalDocs = data.totalDocs;
+      this.totalPages = data.totalPages;
+      this.hasPrevPage = data.hasPrevPage;
+      this.prevPage = data.prevPage;
+      this.hasNextPage = data.hasNextPage;
+      this.nextPage = data.nextPage;
+    });
   }
 
   assignmentClick(assignment:Assignment) {
