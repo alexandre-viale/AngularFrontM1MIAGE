@@ -28,11 +28,17 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoginPageComponent } from './assignments/login-page/login-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AddSubjectComponent } from './assignments/add-subject/add-subject.component';
 const appRoutes: Routes = [
   { path: 'home', component: AssignmentsComponent, canActivate: [AuthGuard] },
   {
-    path: 'add',
+    path: 'add/assignment',
     component: AddAssignmentComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'add/subject',
+    component: AddSubjectComponent,
     canActivate: [AuthGuard],
   },
   {
@@ -57,6 +63,7 @@ const appRoutes: Routes = [
     RenduDirective,
     AssignmentDetailComponent,
     AddAssignmentComponent,
+    AddSubjectComponent,
     EditAssignmentComponent,
     LoginPageComponent,
   ],

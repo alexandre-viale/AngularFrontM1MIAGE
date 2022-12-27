@@ -1,0 +1,11 @@
+<form class="form" ngForm (submit)="onSubmit(nomAssignment.value);assignmentForm.reset()" #assignmentForm>
+  <h1>Ajouter une matière</h1>
+  <mat-form-field>
+    <input placeholder="Nom" matInput [(ngModel)]="name" #nomAssignment name="nom">
+  </mat-form-field>
+  
+  <button mat-stroked-button
+       color="primary">
+    Ajouter
+  </button>
+</form>

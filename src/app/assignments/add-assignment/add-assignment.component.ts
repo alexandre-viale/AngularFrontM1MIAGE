@@ -17,6 +17,7 @@ export class AddAssignmentComponent implements OnInit {
     newAssignment.nom = nom;
     newAssignment.dateDeRendu = this.dateDeRendu;
     newAssignment.rendu = false;
+    // TODO: Select subject
     this.assignmentsService.createAssignment(newAssignment).subscribe((message) => {
       console.log(message);
       });
