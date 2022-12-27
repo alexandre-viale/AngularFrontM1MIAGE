@@ -29,6 +29,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoginPageComponent } from './assignments/login-page/login-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddSubjectComponent } from './assignments/add-subject/add-subject.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 const appRoutes: Routes = [
   { path: 'home', component: AssignmentsComponent, canActivate: [AuthGuard] },
   {
@@ -85,6 +86,7 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     RouterModule.forRoot(appRoutes),
     MatSlideToggleModule,
+    MatSnackBarModule,
     HttpClientModule,
     MatPaginatorModule,
     MatProgressSpinnerModule
