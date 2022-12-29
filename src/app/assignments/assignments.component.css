@@ -11,3 +11,8 @@
 .ajouterBtn {
   align-self: flex-end;
 }
+.mat-table {
+  overflow: hidden !important;
+  width: 100%;
+  border-radius:20px;
+}

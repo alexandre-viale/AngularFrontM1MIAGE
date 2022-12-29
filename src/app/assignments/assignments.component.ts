@@ -1,6 +1,7 @@
 import { Component,Input, OnInit } from '@angular/core';
 import { Assignment } from './assignment.model';
 import { AssignmentsService } from '../shared/assignments.service';
+import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',
@@ -19,7 +20,9 @@ export class AssignmentsComponent implements OnInit {
   formVisible = false;
   assignmentSelected : any = undefined;
   assignments : Assignment[] = []
-  constructor(private assignmentsService: AssignmentsService) { }
+  displayedColumns: string[] = ['nom', 'dateDeRendu', 'rendu'];
+  constructor(private assignmentsService: AssignmentsService,
+    public datePipe: DatePipe) { }
   
   ngOnInit(): void {
     this.getAssignments(this.page, this.limit);
@@ -47,5 +50,8 @@ export class AssignmentsComponent implements OnInit {
   assignmentClick(assignment:Assignment) {
     this.assignmentSelected = assignment;
   }
- 
+  
+  displayDate(date: Date) {
+    return this.datePipe.transform(date, 'dd/MM/yyyy');
+  }
 }
