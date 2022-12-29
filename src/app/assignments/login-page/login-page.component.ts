@@ -17,12 +17,27 @@ export class LoginPageComponent implements OnInit {
     this.authService.isLogged() && this.router.navigate(['/home']);
   }
 
-  onLogin() {
-    const isLogged = this.authService.logIn({name: this.username, password: this.password})
-    if(isLogged)
-    {
-      console.log(this.authService.currentUser);
-      this.router.navigate(['/home']);
-    }
+  async onLogin() {
+    this.authService.logIn({username: this.username, password: this.password}).subscribe(
+      {
+        next: (response) => {
+          this.authService.currentUser = response.user;
+          this.authService.jwtToken = response.accessToken;
+          localStorage.setItem('token', response.accessToken);
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          if(err.status === 401) {
+            alert('Mauvais nom d\'utilisateur ou mot de passe');
+          }
+          if(err.status === 500) {
+            alert('Erreur serveur');
+          }
+          if(err.status === 404) {
+            alert('Utilisateur non trouvé');
+          }
+        }
+      }
+    );
   }
 }

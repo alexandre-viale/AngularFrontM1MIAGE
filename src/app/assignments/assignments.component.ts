@@ -15,7 +15,6 @@ export class AssignmentsComponent implements OnInit {
   prevPage!: number;
   hasNextPage!: boolean;
   nextPage!: number; 
-  titre = 'Mon application sur les assignments !'
   ajoutActive = false;
   formVisible = false;
   assignmentSelected : any = undefined;
