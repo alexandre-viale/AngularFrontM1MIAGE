@@ -35,14 +35,12 @@ export class EditAssignmentComponent implements OnInit {
 }
 onSaveAssignment() {
   if (!this.assignment) return;
-
   this.assignment.nom = this.nomAssignment;
-  this.assignment.dateRendu = this.dateRendu.toString();
+  this.assignment.dateRendu = this.dateRendu.toISOString();
   this.assignmentsService
     .updateAssignment(this.assignment)
     .subscribe((message) => {
       console.log(message);
-
       this.router.navigate(['/home']);
     });
 }
