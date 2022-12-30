@@ -8,14 +8,14 @@ import { AssignmentsService } from 'src/app/shared/assignments.service';
 })
 export class AddAssignmentComponent implements OnInit {
   nomDevoir:string = ""; 
-  dateDeRendu!:Date;
+  dateRendu!:Date;
   constructor(private assignmentsService : AssignmentsService ) {}
   ngOnInit(): void {
   }
   onSubmit(nom:string) {
     const newAssignment = new Assignment();
     newAssignment.nom = nom;
-    newAssignment.dateDeRendu = this.dateDeRendu;
+    newAssignment.dateRendu = this.dateRendu.toISOString();
     newAssignment.rendu = false;
     this.assignmentsService.createAssignment(newAssignment).subscribe((message) => {
       console.log(message);

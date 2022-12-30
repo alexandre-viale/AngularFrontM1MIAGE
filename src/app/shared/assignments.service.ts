@@ -41,7 +41,6 @@ export class AssignmentsService {
   }
 
   getAssignmentsPaginated(page: number, limit: number): Observable<any> {
-    console.log(localStorage.getItem('token'))
     return this.http.get(this.uri,{...this.httpOptions, params: {page: page.toString(), limit: limit.toString()}});
   }
 }

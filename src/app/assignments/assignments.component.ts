@@ -20,7 +20,7 @@ export class AssignmentsComponent implements OnInit {
   formVisible = false;
   assignmentSelected : any = undefined;
   assignments : Assignment[] = []
-  displayedColumns: string[] = ['nom', 'dateDeRendu', 'rendu'];
+  displayedColumns: string[] = ['nom', 'dateRendu', 'rendu'];
   constructor(private assignmentsService: AssignmentsService,
     public datePipe: DatePipe) { }
   
@@ -35,6 +35,7 @@ export class AssignmentsComponent implements OnInit {
   getAssignments(page: number, limit: number) {
     this.assignmentsService.getAssignmentsPaginated(page, limit)
     .subscribe(data => {
+      console.log(data.docs);
       this.assignments = data.docs;
       this.page = data.page;
       this.limit = data.limit;
@@ -45,13 +46,20 @@ export class AssignmentsComponent implements OnInit {
       this.hasNextPage = data.hasNextPage;
       this.nextPage = data.nextPage;
     });
+    
   }
 
   assignmentClick(assignment:Assignment) {
     this.assignmentSelected = assignment;
+    this.formVisible = true;
   }
   
-  displayDate(date: Date) {
-    return this.datePipe.transform(date, 'dd/MM/yyyy');
+  displayDate(date: string) {
+    try{
+      return this.datePipe.transform(date, 'dd/MM/yyyy');
+    }catch{
+      return date;
+    }
+    
   }
 }
