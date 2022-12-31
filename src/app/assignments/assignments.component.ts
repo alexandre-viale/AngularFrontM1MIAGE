@@ -2,10 +2,18 @@ import { Component,Input, OnInit } from '@angular/core';
 import { Assignment } from './assignment.model';
 import { AssignmentsService } from '../shared/assignments.service';
 import { DatePipe } from '@angular/common'
+import { animate, state, style, transition, trigger } from '@angular/animations';
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',
-  styleUrls: ['./assignments.component.css']
+  styleUrls: ['./assignments.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class AssignmentsComponent implements OnInit {
   page: number=1;
@@ -17,10 +25,11 @@ export class AssignmentsComponent implements OnInit {
   hasNextPage!: boolean;
   nextPage!: number; 
   ajoutActive = false;
-  formVisible = false;
   assignmentSelected : any = undefined;
   assignments : Assignment[] = []
-  displayedColumns: string[] = ['nom', 'dateRendu', 'rendu'];
+  columnsToDisplay: string[] = ['nom', 'dateRendu', 'rendu'];
+  columnsToDisplayWithExpand: string[] = [...this.columnsToDisplay, 'expand'];
+  expandedElement!: Assignment | null;
   constructor(private assignmentsService: AssignmentsService,
     public datePipe: DatePipe) { }
   
@@ -35,7 +44,6 @@ export class AssignmentsComponent implements OnInit {
   getAssignments(page: number, limit: number) {
     this.assignmentsService.getAssignmentsPaginated(page, limit)
     .subscribe(data => {
-      console.log(data.docs);
       this.assignments = data.docs;
       this.page = data.page;
       this.limit = data.limit;
@@ -48,11 +56,6 @@ export class AssignmentsComponent implements OnInit {
     });
     
   }
-
-  assignmentClick(assignment:Assignment) {
-    this.assignmentSelected = assignment;
-    this.formVisible = true;
-  }
   
   displayDate(date: string) {
     try{
@@ -60,6 +63,5 @@ export class AssignmentsComponent implements OnInit {
     }catch{
       return date;
     }
-    
   }
 }

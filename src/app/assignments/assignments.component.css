@@ -16,11 +16,34 @@
   width: 100%;
   border-radius:20px;
 }
-.mat-row {
-  cursor: pointer;
-  transition: background-color 0.25s;
+.mat-spinner {
+  margin: 0 auto;
+}
+tr.detail-row {
+  height: 0;
+  background-color:#f5f5f5;
 }
 
-.mat-row:hover {
-  background-color: #f5f5f5;
+tr.element-row:not(.expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+  cursor: pointer;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.element-detail-content {
+  padding: 20px 0px;
+  flex-direction: column;
+  justify-content: center;
 }
