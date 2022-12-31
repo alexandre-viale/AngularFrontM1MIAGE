@@ -1,44 +1,46 @@
 import { Injectable } from '@angular/core';
 import { Assignment } from '../assignments/assignment.model';
-import { Observable, of } from 'rxjs';
-import { LoggingService } from './logging.service';
-import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root',
 })
 export class AssignmentsService {
   assignments: Assignment[] = []
   uri = 'http://localhost:8010/api/assignments';
-
+  httpOptions = {
+    headers: new HttpHeaders({
+     'Authorization': 'Bearer ' + this.auth.jwtToken,
+    }),
+   };
   constructor(
-    private loggingService: LoggingService,
-    private http: HttpClient
+    private http: HttpClient,
+    private auth: AuthService,
   ) {}
 
   getAssignments(): Observable<Assignment[]> {
-    return this.http.get<Assignment[]>(this.uri);
+    return this.http.get<Assignment[]>(this.uri, this.httpOptions);
   }
 
-  deleteAssignment(assignment: Assignment): Observable<string> {
-    this.loggingService.log(assignment.nom, 'deleted');
-    return this.http.delete(`${this.uri}/${assignment._id}`, { responseType: 'text' });
+  deleteAssignment(assignment: Assignment): Observable<any> {
+    return this.http.delete(`${this.uri}/${assignment._id}`, this.httpOptions);
   }
 
   createAssignment(assignment: Assignment): Observable<any> {
-    return this.http.post(this.uri, assignment);
+    return this.http.post(this.uri, assignment, this.httpOptions);
   }
 
   getAssignment(id: string): Observable<any> {
-    return this.http.get(`${this.uri}/${id}`);
+    return this.http.get(`${this.uri}/${id}`, this.httpOptions);
   }
 
   updateAssignment(assignment: Assignment): Observable<any> {
     assignment.rendu = true;
-    return this.http.put<Assignment>(this.uri,assignment)
+    return this.http.put<Assignment>(this.uri,assignment, this.httpOptions)
   }
 
   getAssignmentsPaginated(page: number, limit: number): Observable<any> {
-    console.log(page, limit);
-    return this.http.get(this.uri,{params: {page: page.toString(), limit: limit.toString()}});
+    return this.http.get(this.uri,{...this.httpOptions, params: {page: page.toString(), limit: limit.toString()}});
   }
 }

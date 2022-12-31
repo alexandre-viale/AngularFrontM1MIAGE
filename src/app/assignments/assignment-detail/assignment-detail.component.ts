@@ -39,7 +39,6 @@ export class AssignmentDetailComponent implements OnInit {
       this.assignmentTransmitted = undefined;
       this.router.navigate(['/home']);
     });
-    
   }
 
   onClickEdit() {

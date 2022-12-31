@@ -30,6 +30,8 @@ import { LoginPageComponent } from './assignments/login-page/login-page.componen
 import { HttpClientModule } from '@angular/common/http';
 import { AddSubjectComponent } from './assignments/add-subject/add-subject.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { DatePipe } from '@angular/common'
 const appRoutes: Routes = [
   { path: 'home', component: AssignmentsComponent, canActivate: [AuthGuard] },
   {
@@ -89,9 +91,10 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     HttpClientModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTableModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

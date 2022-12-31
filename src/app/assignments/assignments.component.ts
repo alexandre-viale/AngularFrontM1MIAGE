@@ -1,6 +1,7 @@
 import { Component,Input, OnInit } from '@angular/core';
 import { Assignment } from './assignment.model';
 import { AssignmentsService } from '../shared/assignments.service';
+import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',
@@ -15,12 +16,13 @@ export class AssignmentsComponent implements OnInit {
   prevPage!: number;
   hasNextPage!: boolean;
   nextPage!: number; 
-  titre = 'Mon application sur les assignments !'
   ajoutActive = false;
   formVisible = false;
   assignmentSelected : any = undefined;
   assignments : Assignment[] = []
-  constructor(private assignmentsService: AssignmentsService) { }
+  displayedColumns: string[] = ['nom', 'dateRendu', 'rendu'];
+  constructor(private assignmentsService: AssignmentsService,
+    public datePipe: DatePipe) { }
   
   ngOnInit(): void {
     this.getAssignments(this.page, this.limit);
@@ -33,6 +35,7 @@ export class AssignmentsComponent implements OnInit {
   getAssignments(page: number, limit: number) {
     this.assignmentsService.getAssignmentsPaginated(page, limit)
     .subscribe(data => {
+      console.log(data.docs);
       this.assignments = data.docs;
       this.page = data.page;
       this.limit = data.limit;
@@ -43,10 +46,20 @@ export class AssignmentsComponent implements OnInit {
       this.hasNextPage = data.hasNextPage;
       this.nextPage = data.nextPage;
     });
+    
   }
 
   assignmentClick(assignment:Assignment) {
     this.assignmentSelected = assignment;
+    this.formVisible = true;
   }
- 
+  
+  displayDate(date: string) {
+    try{
+      return this.datePipe.transform(date, 'dd/MM/yyyy');
+    }catch{
+      return date;
+    }
+    
+  }
 }

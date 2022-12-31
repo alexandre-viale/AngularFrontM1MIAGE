@@ -2,7 +2,7 @@ import { Subject } from "../subject.model";
 
 export class Assignment {
   nom!: string;
-  dateDeRendu!: Date;
+  dateRendu!: string;
   rendu!: boolean;
   grade?: number;
   subject!: Subject;

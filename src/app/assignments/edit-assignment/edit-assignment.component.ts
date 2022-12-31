@@ -12,7 +12,7 @@ import { Assignment } from '../assignment.model';
 export class EditAssignmentComponent implements OnInit {
  assignment!: Assignment | undefined;
  nomAssignment!: string;
- dateDeRendu!: Date;
+ dateRendu!: Date;
 
  constructor(
    private assignmentsService: AssignmentsService,
@@ -32,19 +32,17 @@ export class EditAssignmentComponent implements OnInit {
     if (!assignment) return;
     this.assignment = assignment;
     this.nomAssignment = assignment.nom;
-    this.dateDeRendu = assignment.dateDeRendu;
+    this.dateRendu = assignment.dateRendu;
   });
 }
 onSaveAssignment() {
   if (!this.assignment) return;
-
   this.assignment.nom = this.nomAssignment;
-  this.assignment.dateDeRendu = this.dateDeRendu;
+  this.assignment.dateRendu = this.dateRendu.toISOString();
   this.assignmentsService
     .updateAssignment(this.assignment)
     .subscribe((message) => {
       console.log(message);
-
       this.router.navigate(['/home']);
       this._snackBar.open("Devoir édité avec succès", "Fermer");
     });
