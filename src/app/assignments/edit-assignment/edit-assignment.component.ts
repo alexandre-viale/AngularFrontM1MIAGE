@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Assignment } from 'src/app/models/assignment.model';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
-import { Assignment } from '../assignment.model';
 
 @Component({
  selector: 'app-edit-assignment',

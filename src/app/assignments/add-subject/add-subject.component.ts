@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Assignment } from '../assignment.model';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
-import { Subject } from 'src/app/subject.model';
 import { SubjectsService } from 'src/app/shared/subject.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject } from 'src/app/models/subject.model';
 
 @Component({
   selector: 'app-add-subject',
@@ -17,7 +16,7 @@ export class AddSubjectComponent implements OnInit {
   }
   onSubmit(nom:string) {
     const newSubject = new Subject();
-    newSubject.nom = nom;
+    newSubject.name = nom;
     // TODO: Assign teacher to current user
     this.subjectsService.createSubject(newSubject).subscribe((message) => {
       console.log(message);

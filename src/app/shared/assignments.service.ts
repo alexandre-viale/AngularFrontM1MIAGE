@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Assignment } from '../assignments/assignment.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { Assignment } from '../models/assignment.model';
 @Injectable({
   providedIn: 'root',
 })
 export class AssignmentsService {
-  assignments: Assignment[] = []
   uri = 'http://localhost:8010/api/assignments';
   httpOptions = {
     headers: new HttpHeaders({

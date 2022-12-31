@@ -32,6 +32,7 @@ import { AddSubjectComponent } from './assignments/add-subject/add-subject.compo
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { DatePipe } from '@angular/common'
+import {MatSelectModule} from '@angular/material/select';
 const appRoutes: Routes = [
   { path: 'home', component: AssignmentsComponent, canActivate: [AuthGuard] },
   {
@@ -93,6 +94,7 @@ const appRoutes: Routes = [
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    MatSelectModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

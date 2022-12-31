@@ -1,7 +1,7 @@
 import { Component,Input, OnInit } from '@angular/core';
-import { Assignment } from './assignment.model';
 import { AssignmentsService } from '../shared/assignments.service';
 import { DatePipe } from '@angular/common'
+import { Assignment } from '../models/assignment.model';
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',

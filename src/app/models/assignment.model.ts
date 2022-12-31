@@ -1,4 +1,5 @@
-import { Subject } from "../subject.model";
+import { Subject } from "./subject.model";
+
 
 export class Assignment {
   nom!: string;
