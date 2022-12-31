@@ -29,7 +29,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoginPageComponent } from './assignments/login-page/login-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DeleteDialogComponent } from './assignments/assignments.component';
 const appRoutes: Routes = [
   { path: 'home', component: AssignmentsComponent, canActivate: [AuthGuard] },
   {
@@ -61,6 +63,7 @@ const appRoutes: Routes = [
     AddAssignmentComponent,
     EditAssignmentComponent,
     LoginPageComponent,
+    DeleteDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +87,7 @@ const appRoutes: Routes = [
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    MatDialogModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

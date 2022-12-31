@@ -49,8 +49,7 @@
               <p class="element-detail-value">Le devoir {{element.nom}} prévu pour le {{displayDate(element.dateRendu)}} {{element.rendu ? 'a été rendu' : "n'a pas été rendu"}}.</p>
             </div>
             <button mat-raised-button color="primary" routerLink="/assignment/{{element._id}}/edit">Modifier</button>
-            TODO : boutton supprimer ne fonctionne pas encore
-            <button mat-raised-button color="warn" [ngStyle]="{'margin-left': '10px'}">Supprimer</button>
+            <button mat-raised-button color="warn" [ngStyle]="{'margin-left': '10px'}" (click)="openDeleteDialog(element)">Supprimer</button>
            </div>
       </div>
     </td>

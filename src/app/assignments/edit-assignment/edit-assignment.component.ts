@@ -24,7 +24,6 @@ export class EditAssignmentComponent implements OnInit {
  }
  getAssignment() {
   const id = this.route.snapshot.params['id'];
- 
   this.assignmentsService.getAssignment(id).subscribe((assignment) => {
     console.log('assignment:', assignment);
     if (!assignment) return;
@@ -36,7 +35,7 @@ export class EditAssignmentComponent implements OnInit {
 onSaveAssignment() {
   if (!this.assignment) return;
   this.assignment.nom = this.nomAssignment;
-  this.assignment.dateRendu = this.dateRendu.toISOString();
+  this.assignment.dateRendu = typeof this.dateRendu === 'string' ? this.dateRendu : this.dateRendu.toISOString();
   this.assignmentsService
     .updateAssignment(this.assignment)
     .subscribe((message) => {

@@ -1,8 +1,9 @@
-import { Component,Input, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Assignment } from './assignment.model';
 import { AssignmentsService } from '../shared/assignments.service';
 import { DatePipe } from '@angular/common'
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',
@@ -31,7 +32,7 @@ export class AssignmentsComponent implements OnInit {
   columnsToDisplayWithExpand: string[] = [...this.columnsToDisplay, 'expand'];
   expandedElement!: Assignment | null;
   constructor(private assignmentsService: AssignmentsService,
-    public datePipe: DatePipe) { }
+    private datePipe: DatePipe, private dialog: MatDialog) { }
   
   ngOnInit(): void {
     this.getAssignments(this.page, this.limit);
@@ -54,7 +55,23 @@ export class AssignmentsComponent implements OnInit {
       this.hasNextPage = data.hasNextPage;
       this.nextPage = data.nextPage;
     });
-    
+  }
+  deleteAssignment(assignment: Assignment) {
+    this.assignmentsService.deleteAssignment(assignment)
+    .subscribe(() => {
+      this.getAssignments(this.page, this.limit);
+    });
+  }
+  openDeleteDialog(assignment: Assignment) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '500px',
+      data: {name: assignment.nom}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteAssignment(assignment);
+      }
+    });
   }
   
   displayDate(date: string) {
@@ -63,5 +80,21 @@ export class AssignmentsComponent implements OnInit {
     }catch{
       return date;
     }
+  }
+
+  
+}
+
+@Component({
+  selector: 'app-delete-dialog',
+  templateUrl: 'delete-dialog.html',
+})
+export class DeleteDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<DeleteDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+    ) {}
+  onNoClick(): void {
+    this.dialogRef.close(false);
   }
 }
