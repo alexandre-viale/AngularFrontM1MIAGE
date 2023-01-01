@@ -1,6 +1,6 @@
 <div class="container" *ngIf="assignment">
   <h1>Edition de l'assignment {{assignment.nom}}</h1>
-  <form ngForm class="form" #formupdate (submit)="onSaveAssignment(); formupdate.reset(); ">
+  <form ngForm class="form" #formupdate (submit)="onSaveAssignment(subject.value); formupdate.reset(); ">
     <mat-form-field>
       <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name">
     </mat-form-field>
@@ -10,8 +10,16 @@
       </mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateRendu))">
-      Save
+    <mat-form-field appearance="fill">
+      <mat-label>Matière</mat-label>
+      <mat-select #subject>
+        <mat-option *ngFor="let subject of subjects" [value]="subject._id">
+          {{subject.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateRendu))||(!subject)">
+      Sauvegarder
     </button>
   </form>
  </div>

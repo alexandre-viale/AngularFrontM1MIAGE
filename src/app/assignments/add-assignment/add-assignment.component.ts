@@ -24,7 +24,6 @@ export class AddAssignmentComponent implements OnInit {
     this.subjectsService.getSubjects()
     .subscribe(subjects => {
       this.subjects = subjects;
-      subjects.forEach(s => console.log("subject : " + s));
     });
   }
 
