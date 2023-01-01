@@ -4,6 +4,8 @@ import { DatePipe } from '@angular/common'
 import { Assignment } from '../models/assignment.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { SubjectsService } from '../shared/subject.service';
+import { Subject } from '../models/subject.model';
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',
@@ -31,8 +33,9 @@ export class AssignmentsComponent implements OnInit {
   columnsToDisplay: string[] = ['nom', 'dateRendu', 'rendu'];
   columnsToDisplayWithExpand: string[] = [...this.columnsToDisplay, 'expand'];
   expandedElement!: Assignment | null;
-  constructor(private assignmentsService: AssignmentsService,
-    private datePipe: DatePipe, private dialog: MatDialog) { }
+  expandedSubjectName!: string;
+
+  constructor(private assignmentsService: AssignmentsService, private subjectsService: SubjectsService, private  datePipe: DatePipe, private dialog: MatDialog) { }
   
   ngOnInit(): void {
     this.getAssignments(this.page, this.limit);
@@ -56,12 +59,14 @@ export class AssignmentsComponent implements OnInit {
       this.nextPage = data.nextPage;
     });
   }
+
   deleteAssignment(assignment: Assignment) {
     this.assignmentsService.deleteAssignment(assignment)
     .subscribe(() => {
       this.getAssignments(this.page, this.limit);
     });
   }
+
   openDeleteDialog(assignment: Assignment) {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '500px',
@@ -71,6 +76,12 @@ export class AssignmentsComponent implements OnInit {
       if (result) {
         this.deleteAssignment(assignment);
       }
+    });
+  }
+
+  getSubject(id: string){
+    this.subjectsService.getSubject(id).subscribe(subject => {
+      this.expandedSubjectName = subject.name;
     });
   }
   

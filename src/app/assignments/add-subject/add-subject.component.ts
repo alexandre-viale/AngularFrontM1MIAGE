@@ -18,7 +18,7 @@ export class AddSubjectComponent implements OnInit {
   onSubmit(nom:string) {
     const newSubject = new Subject();
     newSubject.name = nom;
-    newSubject.teacher = this.authService.currentUser; // point _id if this don't work
+    newSubject.teacher = this.authService.currentUser;
     this.subjectsService.createSubject(newSubject).subscribe((message) => {
       console.log(message);
       this._snackBar.open("Matière \"" + nom + "\" créée", "Fermer");

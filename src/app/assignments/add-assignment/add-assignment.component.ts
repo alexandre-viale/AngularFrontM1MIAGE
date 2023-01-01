@@ -33,7 +33,7 @@ export class AddAssignmentComponent implements OnInit {
     newAssignment.nom = nom;
     newAssignment.dateRendu = this.dateRendu.toISOString();
     newAssignment.rendu = false;
-    newAssignment.subject = subject; // point _id if this don't work
+    newAssignment.subject = subject;
     this.assignmentsService.createAssignment(newAssignment).subscribe((message) => {
       console.log(message);
       this._snackBar.open("Devoir \"" + nom + "\" créé", "Fermer");
