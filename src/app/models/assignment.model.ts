@@ -1,6 +1,5 @@
 import { Subject } from "./subject.model";
 
-
 export class Assignment {
   nom!: string;
   dateRendu!: string;

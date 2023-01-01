@@ -10,9 +10,7 @@ import { SubjectsService } from 'src/app/shared/subject.service';
   styleUrls: ['./add-assignment.component.css']
 })
 export class AddAssignmentComponent implements OnInit {
-  nomDevoir:string = ""; 
   dateRendu!:Date;
-  subjectName!:String;
 
   subjects: Subject[] = [];
 
@@ -30,12 +28,12 @@ export class AddAssignmentComponent implements OnInit {
     });
   }
 
-  onSubmit(nom:string/*, subject:Subject*/) {
+  onSubmit(nom:string, subject:Subject) {
     const newAssignment = new Assignment();
     newAssignment.nom = nom;
     newAssignment.dateRendu = this.dateRendu.toISOString();
     newAssignment.rendu = false;
-    //newAssignment.subject = subject;
+    newAssignment.subject = subject; // point _id if this don't work
     this.assignmentsService.createAssignment(newAssignment).subscribe((message) => {
       console.log(message);
       this._snackBar.open("Devoir \"" + nom + "\" créé", "Fermer");

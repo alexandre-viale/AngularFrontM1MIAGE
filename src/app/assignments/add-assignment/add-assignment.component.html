@@ -1,7 +1,7 @@
-<form class="form" ngForm (submit)="onSubmit(nomAssignment.value);assignmentForm.reset()" #assignmentForm>
+<form class="form" ngForm (submit)="onSubmit(nomAssignment.value, subject.value);assignmentForm.reset()" #assignmentForm>
   <h1>Ajouter un devoir</h1>
   <mat-form-field>
-    <input placeholder="Nom" matInput [(ngModel)]="nomDevoir" #nomAssignment name="nom">
+    <input placeholder="Nom" matInput #nomAssignment name="nom">
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Date</mat-label>
@@ -11,7 +11,7 @@
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Matière</mat-label>
-    <mat-select [(ngModel)]="subjectName">
+    <mat-select #subject>
       <mat-option *ngFor="let subject of subjects" [value]="subject._id">
         {{subject.name}}
       </mat-option>
