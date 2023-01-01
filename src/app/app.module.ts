@@ -33,6 +33,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { DatePipe } from '@angular/common'
 import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DeleteDialogComponent } from './assignments/assignments.component';
 const appRoutes: Routes = [
   { path: 'home', component: AssignmentsComponent, canActivate: [AuthGuard] },
   {
@@ -70,6 +72,7 @@ const appRoutes: Routes = [
     AddSubjectComponent,
     EditAssignmentComponent,
     LoginPageComponent,
+    DeleteDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,7 +97,8 @@ const appRoutes: Routes = [
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatTableModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
