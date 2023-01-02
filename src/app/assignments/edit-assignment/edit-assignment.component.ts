@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, Validators} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Assignment } from 'src/app/models/assignment.model';
@@ -19,12 +20,23 @@ export class EditAssignmentComponent implements OnInit {
  grade?: number;
  comment?: string;
 
+ firstFormGroup = this._formBuilder.group({
+  firstCtrl: ['', Validators.required],
+});
+secondFormGroup = this._formBuilder.group({
+  secondCtrl: ['', Validators.required],
+});
+thirdFormGroup = this._formBuilder.group({
+  thirdCtrl: ['', Validators.required],
+});
+
  constructor(
    private assignmentsService: AssignmentsService,
    private subjectsService: SubjectsService,
    private route: ActivatedRoute,
    private router: Router, 
-   private _snackBar: MatSnackBar
+   private _snackBar: MatSnackBar,
+   private _formBuilder: FormBuilder
  ) {}
 
   ngOnInit(): void {

@@ -1,22 +1,50 @@
-<form class="form" ngForm (submit)="onSubmit(nomAssignment.value, subject.value);assignmentForm.reset()" #assignmentForm>
+<form class="form" ngForm (submit)="onSubmit(nomAssignment.value, dateRendu.value, subject.value);assignmentForm.reset()" #assignmentForm>
   <h1>Ajouter un devoir</h1>
-  <mat-form-field>
-    <input placeholder="Nom" matInput #nomAssignment name="nom">
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Date</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="dateRendu" name="date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Matière</mat-label>
-    <mat-select #subject>
-      <mat-option *ngFor="let subject of subjects" [value]="subject._id">
-        {{subject.name}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+
+  <mat-stepper orientation="vertical" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Nom</ng-template>
+        <mat-form-field>
+          <input placeholder="Nom" matInput #nomAssignment name="nom">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Date de rendu</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" #dateRendu name="date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Précédent</button>
+          <button mat-button matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup">
+      <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Matière</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Matière</mat-label>
+          <mat-select #subject>
+            <mat-option *ngFor="let subject of subjects" [value]="subject._id">
+              {{subject.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Précédent</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-stepper>
   
   <button mat-stroked-button
        color="primary">

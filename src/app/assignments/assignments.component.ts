@@ -7,6 +7,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { SubjectsService } from '../shared/subject.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { UsersService } from '../shared/users.service';
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',
@@ -35,6 +36,8 @@ export class AssignmentsComponent implements OnInit {
   expandedElement!: Assignment | null;
   expandedSubjectName!: string;
   expandedSubjectPreview!: string;
+  expandedSubjectTeacherName!: string;
+  expandedSubjectTeacherPreview!: string;
   finishedFetching = false;
   dataSource!: MatTableDataSource<Assignment>;
   displayRendu: boolean = false;
@@ -43,7 +46,7 @@ export class AssignmentsComponent implements OnInit {
   sortName: string = '';
   
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private assignmentsService: AssignmentsService, private subjectsService: SubjectsService, private  datePipe: DatePipe, private dialog: MatDialog) { }
+  constructor(private assignmentsService: AssignmentsService, private subjectsService: SubjectsService, private usersService: UsersService, private  datePipe: DatePipe, private dialog: MatDialog) { }
   
   ngOnInit(): void {
     
@@ -94,6 +97,14 @@ export class AssignmentsComponent implements OnInit {
     this.subjectsService.getSubject(id).subscribe(subject => {
       this.expandedSubjectName = subject.name;
       this.expandedSubjectPreview = subject.preview;
+      this.getUser(subject.teacher);
+    });
+  }
+
+  getUser(id: string){
+    this.usersService.getUser(id).subscribe(user =>{
+      this.expandedSubjectTeacherName = user.username;
+      this.expandedSubjectTeacherPreview = user.preview;
     });
   }
   

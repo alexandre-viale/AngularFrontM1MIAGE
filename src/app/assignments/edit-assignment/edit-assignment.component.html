@@ -1,32 +1,37 @@
-<div class="container" *ngIf="assignment">
-  <h1>Edition de l'assignment {{assignment.nom}}</h1>
-  <form ngForm class="form" #formupdate (submit)="onSaveAssignment(subject.value); formupdate.reset(); ">
-    <mat-form-field>
-      <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateRendu" name="date">
-      <mat-datepicker-toggle matSuffix [for]="picker">
-      </mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Matière</mat-label>
-      <mat-select #subject>
-        <mat-option *ngFor="let subject of subjects" [value]="subject._id">
-          {{subject.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Note" [(ngModel)]="grade" name="assignment-grade" type="number" min="0" max="20">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Remarque" [(ngModel)]="comment" name="assignment-comment">
-    </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateRendu))||(!subject)">
-      Sauvegarder
-    </button>
-  </form>
- </div>
- 
+ <form *ngIf="assignment" class="form" ngForm #formupdate (submit)="onSaveAssignment(subject.value); formupdate.reset();">
+  <h1>Edition du devoir "{{assignment.nom}}"</h1>
+
+  <mat-form-field>
+    <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateRendu" name="date">
+    <mat-datepicker-toggle matSuffix [for]="picker">
+    </mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Matière</mat-label>
+    <mat-select #subject>
+      <mat-option *ngFor="let subject of subjects" [value]="subject._id">
+        {{subject.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Note" [(ngModel)]="grade" name="assignment-grade" type="number" min="0" max="20">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput
+            placeholder="Remarque"
+            [(ngModel)]="comment"
+            name="assignment-comment"
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateRendu))||(!subject)">
+    Sauvegarder
+  </button>
+</form>
