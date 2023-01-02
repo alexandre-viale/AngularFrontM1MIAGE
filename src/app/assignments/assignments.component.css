@@ -8,13 +8,15 @@
   display: flex;
   flex-direction: column;
 }
-.ajouterBtn {
-  align-self: flex-end;
-}
 .mat-table {
   overflow: hidden !important;
   width: 100%;
+}
+.table-container {
+  margin-top: 20px;
   border-radius:20px;
+  overflow: auto;
+  max-height: 500px;
 }
 .mat-spinner {
   margin: 0 auto;
@@ -46,4 +48,14 @@ tr.element-row:not(.expanded-row):active {
   padding: 20px 0px;
   flex-direction: column;
   justify-content: center;
+}
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+.non-rendu-toggle-text {
+  margin-right: 10px;
+  line-height: 1.5;
 }

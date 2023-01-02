@@ -1,11 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { AssignmentsService } from '../shared/assignments.service';
 import { DatePipe } from '@angular/common'
 import { Assignment } from '../models/assignment.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SubjectsService } from '../shared/subject.service';
-import { Subject } from '../models/subject.model';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',
@@ -18,7 +20,7 @@ import { Subject } from '../models/subject.model';
     ]),
   ],
 })
-export class AssignmentsComponent implements OnInit {
+export class AssignmentsComponent implements OnInit, AfterViewInit {
   page: number=1;
   limit: number=10;
   totalDocs!: number;
@@ -29,16 +31,23 @@ export class AssignmentsComponent implements OnInit {
   nextPage!: number; 
   ajoutActive = false;
   assignmentSelected : any = undefined;
-  assignments : Assignment[] = []
   columnsToDisplay: string[] = ['nom', 'dateRendu', 'rendu'];
   columnsToDisplayWithExpand: string[] = [...this.columnsToDisplay, 'expand'];
   expandedElement!: Assignment | null;
   expandedSubjectName!: string;
-
+  finishedFetching = false;
+  dataSource!: MatTableDataSource<Assignment>;
+  displayRendu: boolean = false;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(private assignmentsService: AssignmentsService, private subjectsService: SubjectsService, private  datePipe: DatePipe, private dialog: MatDialog) { }
   
   ngOnInit(): void {
     this.getAssignments(this.page, this.limit);
+  }
+
+  ngAfterViewInit() {
+    if(this.dataSource)
+    this.dataSource.sort = this.sort;
   }
 
   paginatorChanged(event: any) {
@@ -46,9 +55,11 @@ export class AssignmentsComponent implements OnInit {
   }
 
   getAssignments(page: number, limit: number) {
-    this.assignmentsService.getAssignmentsPaginated(page, limit)
+    this.assignmentsService.getAssignmentsPaginated(page, limit, {rendu: this.displayRendu} )
     .subscribe(data => {
-      this.assignments = data.docs;
+      this.dataSource = new MatTableDataSource<Assignment>(data.docs);
+      this.dataSource.sort = this.sort;
+      this.dataSource.data.length
       this.page = data.page;
       this.limit = data.limit;
       this.totalDocs = data.totalDocs;
@@ -57,6 +68,7 @@ export class AssignmentsComponent implements OnInit {
       this.prevPage = data.prevPage;
       this.hasNextPage = data.hasNextPage;
       this.nextPage = data.nextPage;
+      this.finishedFetching = true;
     });
   }
 
@@ -66,7 +78,7 @@ export class AssignmentsComponent implements OnInit {
       this.getAssignments(this.page, this.limit);
     });
   }
-
+  
   openDeleteDialog(assignment: Assignment) {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '500px',
@@ -84,6 +96,12 @@ export class AssignmentsComponent implements OnInit {
       this.expandedSubjectName = subject.name;
     });
   }
+  
+  toggleRendu() {
+    this.displayRendu = !this.displayRendu;
+    this.getAssignments(this.page, this.limit);
+  }
+
   
   displayDate(date: string) {
     try{
