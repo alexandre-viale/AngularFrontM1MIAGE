@@ -18,10 +18,6 @@ export class AssignmentsService {
     private auth: AuthService,
   ) {}
 
-  getAssignments(): Observable<Assignment[]> {
-    return this.http.get<Assignment[]>(this.uri, this.httpOptions);
-  }
-
   deleteAssignment(assignment: Assignment): Observable<any> {
     console.log("assignment:", assignment);
     return this.http.delete(`${this.uri}/${assignment._id}`, this.httpOptions);
@@ -40,7 +36,14 @@ export class AssignmentsService {
     return this.http.put<Assignment>(this.uri,assignment, this.httpOptions)
   }
 
-  getAssignmentsPaginated(page: number, limit: number, filters: object = {}): Observable<any> {
-    return this.http.get(this.uri,{...this.httpOptions, params: {page: page.toString(), limit: limit.toString(),filters: JSON.stringify(filters)}});
+  getAssignmentsPaginated(page: number, limit: number, sort: object = {}, filters: object = {}): Observable<any> {
+    return this.http.get(this.uri,{...this.httpOptions, 
+      params: {
+      page: page.toString(), 
+      limit: limit.toString(), 
+      sort: JSON.stringify(sort), 
+      filters: JSON.stringify(filters)
+      }
+    });
   }
 }
