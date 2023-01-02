@@ -34,6 +34,7 @@ export class AssignmentsComponent implements OnInit {
   columnsToDisplayWithExpand: string[] = [...this.columnsToDisplay, 'expand'];
   expandedElement!: Assignment | null;
   expandedSubjectName!: string;
+  expandedSubjectPreview!: string;
   finishedFetching = false;
   dataSource!: MatTableDataSource<Assignment>;
   displayRendu: boolean = false;
@@ -92,6 +93,7 @@ export class AssignmentsComponent implements OnInit {
   getSubject(id: string){
     this.subjectsService.getSubject(id).subscribe(subject => {
       this.expandedSubjectName = subject.name;
+      this.expandedSubjectPreview = subject.preview;
     });
   }
   

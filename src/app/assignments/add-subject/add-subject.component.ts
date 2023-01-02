@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/shared/auth.service';
   styleUrls: ['./add-subject.component.css']
 })
 export class AddSubjectComponent implements OnInit {
-  name:string = ""; 
+  preview: string | undefined;
   constructor(private subjectsService: SubjectsService, private authService: AuthService, private _snackBar: MatSnackBar) {}
   ngOnInit(): void {
   }
@@ -19,6 +19,7 @@ export class AddSubjectComponent implements OnInit {
     const newSubject = new Subject();
     newSubject.name = nom;
     newSubject.teacher = this.authService.currentUser;
+    newSubject.preview = this.preview;
     this.subjectsService.createSubject(newSubject).subscribe((message) => {
       console.log(message);
       this._snackBar.open("Matière \"" + nom + "\" créée", "Fermer");

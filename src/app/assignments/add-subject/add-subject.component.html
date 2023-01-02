@@ -1,8 +1,12 @@
 <form class="form" ngForm (submit)="onSubmit(nomAssignment.value);assignmentForm.reset()" #assignmentForm>
   <h1>Ajouter une matière</h1>
   <mat-form-field>
-    <input placeholder="Nom" matInput [(ngModel)]="name" #nomAssignment name="nom">
+    <input placeholder="Nom" matInput #nomAssignment name="nom">
   </mat-form-field>
+  <mat-form-field>
+    <input placeholder="Image de prévisualisation" matInput [(ngModel)]="preview" name="preview">
+  </mat-form-field>
+  <img src="{{preview ? preview : 'https://lms.univ-cotedazur.fr/2022/pluginfile.php/37743/course/overviewfiles/miage.jpg'}}" alt="Prévisualisation de la matière">
   
   <button mat-stroked-button
        color="primary">

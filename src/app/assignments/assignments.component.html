@@ -63,7 +63,13 @@
                 <p class="element-detail-value">
                   Le devoir {{element.nom}} prévu pour le {{displayDate(element.dateRendu)}} {{element.rendu ? 'a été rendu' : "n'a pas été rendu"}}.
                 </p>
-                <p><strong>{{expandedSubjectName}}</strong></p>
+                <h2>{{expandedSubjectName}}</h2>
+                <img src="{{expandedSubjectPreview}}" alt="">
+                <h2 *ngIf="element.grade">Note : {{element.grade}}/20</h2>
+                <div *ngIf="element.comment">
+                  <h2>Remarque :</h2>
+                  <p class="comment">{{element.comment}}</p>
+                </div>
               </div>
               <button mat-raised-button color="primary" routerLink="/assignment/{{element._id}}/edit">Modifier</button>
               <button mat-raised-button color="warn" [ngStyle]="{'margin-left': '10px'}" (click)="openDeleteDialog(element)">Supprimer</button>

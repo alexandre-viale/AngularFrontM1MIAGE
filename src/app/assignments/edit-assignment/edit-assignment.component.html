@@ -18,6 +18,12 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Note" [(ngModel)]="grade" name="assignment-grade" type="number" min="0" max="20">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Remarque" [(ngModel)]="comment" name="assignment-comment">
+    </mat-form-field>
     <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateRendu))||(!subject)">
       Sauvegarder
     </button>
