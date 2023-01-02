@@ -32,7 +32,6 @@ export class AssignmentsService {
   }
 
   updateAssignment(assignment: Assignment): Observable<any> {
-    assignment.rendu = true;
     return this.http.put<Assignment>(this.uri,assignment, this.httpOptions)
   }
 

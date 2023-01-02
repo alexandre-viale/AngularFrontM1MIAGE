@@ -57,9 +57,9 @@ export class EditAssignmentComponent implements OnInit {
     this.assignment.nom = this.nomAssignment;
     this.assignment.dateRendu = typeof this.dateRendu === 'string' ? this.dateRendu : this.dateRendu.toISOString();
     this.assignment.subject = subject;
+    this.assignment.rendu = this.grade === undefined ? false : true;
     this.assignment.grade = this.grade;
     this.assignment.comment = this.comment;
-    console.log(this.assignment.grade + ", " + this.grade)
     this.assignmentsService
       .updateAssignment(this.assignment)
       .subscribe((message) => {
