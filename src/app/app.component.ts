@@ -9,7 +9,7 @@ import { AuthService } from './shared/auth.service';
 })
 export class AppComponent{
   title = 'Application de gestion des devoirs';
-
+  showFiller = false;
   constructor(private router: Router, private authService: AuthService, private _snackBar: MatSnackBar) {}
 
   get isLogged() {

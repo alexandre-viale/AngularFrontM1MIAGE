@@ -97,7 +97,7 @@ export class AssignmentsComponent implements OnInit {
   
   toggleRendu() {
     this.displayRendu = !this.displayRendu;
-    this.getAssignments(this.page, this.limit);
+    this.getAssignments( 0, this.limit);
   }
 
   onSort(event: any) {

@@ -35,7 +35,8 @@ import { DatePipe } from '@angular/common'
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DeleteDialogComponent } from './assignments/assignments.component';
-import { MatSortModule } from '@angular/material/sort'
+import { MatSortModule } from '@angular/material/sort';
+import {MatSidenavModule} from '@angular/material/sidenav';
 const appRoutes: Routes = [
   { path: 'home', component: AssignmentsComponent, canActivate: [AuthGuard] },
   {
@@ -100,7 +101,8 @@ const appRoutes: Routes = [
     MatTableModule,
     MatSelectModule,
     MatDialogModule,
-    MatSortModule
+    MatSortModule,
+    MatSidenavModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
