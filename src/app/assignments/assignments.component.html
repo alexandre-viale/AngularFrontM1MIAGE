@@ -1,74 +1,81 @@
-<div class="ajouterBtn">
+<div>
   <a routerLink="/add/assignment">
-    <button class="ajouterBtn" mat-flat-button color="accent">
+    <button  mat-flat-button color="accent">
       Ajouter un devoir
     </button>
   </a>
   <a routerLink="/add/subject">
-    <button class="ajouterBtn" mat-flat-button color="accent">
+    <button [ngStyle]="{'margin-left': '10px'}" mat-flat-button color="accent">
       Ajouter une matière
     </button>
   </a>
 </div>
-<mat-paginator [length]="totalDocs"
-              [pageSize]="limit"
-              [pageSizeOptions]="[5, 10, 25, 100]"
-              aria-label="Select page"
-              (page)="paginatorChanged($event)">
-              >
+<mat-spinner *ngIf="!finishedFetching"></mat-spinner>
+<div class="mat-elevation-z3 table-container">
+  <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows >
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
+      <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+    </ng-container>
+    <ng-container matColumnDef="dateRendu">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de rendu </th>
+      <td mat-cell *matCellDef="let element"> {{displayDate(element.dateRendu)}} </td>
+    </ng-container>
+    <ng-container matColumnDef="rendu">
+      <th mat-header-cell *matHeaderCellDef> Rendu </th>
+      <td mat-cell *matCellDef="let element"> 
+        <mat-icon *ngIf="element.rendu; else notSent" [ngStyle]="{'color': 'green'}" fontIcon="check_circle_outline"></mat-icon> 
+        <ng-template #notSent>
+          <mat-icon [ngStyle]="{'color': 'red'}"  fontIcon="highlight_off"></mat-icon>
+        </ng-template>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+          <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+          <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+        <div class="element-detail"
+             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+             <div class="element-detail-content">
+              <div>
+                <p class="element-detail-value">
+                  Le devoir {{element.nom}} prévu pour le {{displayDate(element.dateRendu)}} {{element.rendu ? 'a été rendu' : "n'a pas été rendu"}}.
+                </p>
+                <p><strong>{{expandedSubjectName}}</strong></p>
+              </div>
+              <button mat-raised-button color="primary" routerLink="/assignment/{{element._id}}/edit">Modifier</button>
+              <button mat-raised-button color="warn" [ngStyle]="{'margin-left': '10px'}" (click)="openDeleteDialog(element)">Supprimer</button>
+             </div>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+        class="element-row"
+        [class.expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element; getSubject(element.subject)">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+  </table>
+  <div class="table-footer">
+    <div>
+      <span class="non-rendu-toggle-text">Afficher les devoirs rendus</span><mat-slide-toggle (change)="toggleRendu()"></mat-slide-toggle>
+    </div>
+    <mat-paginator [length]="totalDocs"
+    [pageSize]="limit"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page"
+    (page)="paginatorChanged($event)">
+    >
 </mat-paginator>
-<mat-spinner *ngIf="!assignments.length"></mat-spinner>
-<table mat-table [dataSource]="assignments" multiTemplateDataRows class="mat-elevation-z3">
-  <ng-container matColumnDef="nom">
-    <th mat-header-cell *matHeaderCellDef> Nom </th>
-    <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
-  </ng-container>
-  <ng-container matColumnDef="dateRendu">
-    <th mat-header-cell *matHeaderCellDef> Date de rendu </th>
-    <td mat-cell *matCellDef="let element"> {{displayDate(element.dateRendu)}} </td>
-  </ng-container>
-  <ng-container matColumnDef="rendu">
-    <th mat-header-cell *matHeaderCellDef> Rendu </th>
-    <td mat-cell *matCellDef="let element"> 
-      <mat-icon *ngIf="element.rendu; else notSent" [ngStyle]="{'color': 'green'}" fontIcon="check_circle_outline"></mat-icon> 
-      <ng-template #notSent>
-        <mat-icon [ngStyle]="{'color': 'red'}"  fontIcon="highlight_off"></mat-icon>
-      </ng-template>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="expand">
-    <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-    <td mat-cell *matCellDef="let element">
-      <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
-        <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
-        <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
-      <div class="element-detail"
-           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-           <div class="element-detail-content">
-            <div>
-              <p class="element-detail-value">
-                Le devoir {{element.nom}} prévu pour le {{displayDate(element.dateRendu)}} {{element.rendu ? 'a été rendu' : "n'a pas été rendu"}}.
-              </p>
-              <p>
-                - {{expandedSubjectName}}
-              </p>
-            </div>
-            <button mat-raised-button color="primary" routerLink="/assignment/{{element._id}}/edit">Modifier</button>
-            <button mat-raised-button color="warn" [ngStyle]="{'margin-left': '10px'}" (click)="openDeleteDialog(element)">Supprimer</button>
-           </div>
-      </div>
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
-  <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
-      class="element-row"
-      [class.expanded-row]="expandedElement === element"
-      (click)="expandedElement = expandedElement === element ? null : element; getSubject(element.subject)">
-  </tr>
-  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
-</table>
+  </div>
+ 
+</div>
+
