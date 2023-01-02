@@ -37,6 +37,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { DeleteDialogComponent } from './assignments/assignments.component';
 import { MatSortModule } from '@angular/material/sort';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatStepperModule} from '@angular/material/stepper';
+import {ReactiveFormsModule } from '@angular/forms';
 const appRoutes: Routes = [
   { path: 'home', component: AssignmentsComponent, canActivate: [AuthGuard] },
   {
@@ -102,7 +104,9 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatDialogModule,
     MatSortModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatStepperModule,
+    ReactiveFormsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

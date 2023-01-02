@@ -1,7 +1,8 @@
 import { User } from "./user.model";
 
 export class Subject {
+    _id!: string;
     name!: string;
     teacher?: User;
-    _id!: string;
+    preview?: string;
 }

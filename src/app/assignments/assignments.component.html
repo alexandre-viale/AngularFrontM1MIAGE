@@ -60,10 +60,18 @@
              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
              <div class="element-detail-content">
               <div>
-                <p class="element-detail-value">
-                  Le devoir {{element.nom}} prévu pour le {{displayDate(element.dateRendu)}} {{element.rendu ? 'a été rendu' : "n'a pas été rendu"}}.
-                </p>
-                <p><strong>{{expandedSubjectName}}</strong></p>
+                <strong *ngIf="element.rendu" class="rendu">Devoir rendu</strong>
+                <h2>{{expandedSubjectName}}</h2>
+                <div class="user">
+                  <p>Responsable : <strong>{{expandedSubjectTeacherName}}</strong></p>
+                  <img class="user-preview" src="{{expandedSubjectTeacherPreview}}" alt="Prévisualisation de la photo du professeur">
+                </div>
+                <img class="subject-preview" src="{{expandedSubjectPreview}}" alt="Prévisualisation de la matière">
+                <h2 *ngIf="element.grade">Note : {{element.grade}}/20</h2>
+                <div *ngIf="element.comment">
+                  <h2>Remarque :</h2>
+                  <p class="comment">{{element.comment}}</p>
+                </div>
               </div>
               <button mat-raised-button color="primary" routerLink="/assignment/{{element._id}}/edit">Modifier</button>
               <button mat-raised-button color="warn" [ngStyle]="{'margin-left': '10px'}" (click)="openDeleteDialog(element)">Supprimer</button>

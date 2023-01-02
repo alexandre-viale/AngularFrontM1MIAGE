@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, Validators} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Assignment } from 'src/app/models/assignment.model';
@@ -16,13 +17,26 @@ export class EditAssignmentComponent implements OnInit {
  nomAssignment!: string;
  dateRendu!: Date;
  subjects: Subject[] = [];
+ grade?: number;
+ comment?: string;
+
+ firstFormGroup = this._formBuilder.group({
+  firstCtrl: ['', Validators.required],
+});
+secondFormGroup = this._formBuilder.group({
+  secondCtrl: ['', Validators.required],
+});
+thirdFormGroup = this._formBuilder.group({
+  thirdCtrl: ['', Validators.required],
+});
 
  constructor(
    private assignmentsService: AssignmentsService,
    private subjectsService: SubjectsService,
    private route: ActivatedRoute,
    private router: Router, 
-   private _snackBar: MatSnackBar
+   private _snackBar: MatSnackBar,
+   private _formBuilder: FormBuilder
  ) {}
 
   ngOnInit(): void {
@@ -38,6 +52,8 @@ export class EditAssignmentComponent implements OnInit {
       this.assignment = assignment;
       this.nomAssignment = assignment.nom;
       this.dateRendu = assignment.dateRendu;
+      this.grade = assignment.grade;
+      this.comment = assignment.comment;
     });
   }
 
@@ -53,6 +69,9 @@ export class EditAssignmentComponent implements OnInit {
     this.assignment.nom = this.nomAssignment;
     this.assignment.dateRendu = typeof this.dateRendu === 'string' ? this.dateRendu : this.dateRendu.toISOString();
     this.assignment.subject = subject;
+    this.assignment.rendu = this.grade === undefined ? false : true;
+    this.assignment.grade = this.grade;
+    this.assignment.comment = this.comment;
     this.assignmentsService
       .updateAssignment(this.assignment)
       .subscribe((message) => {

@@ -4,17 +4,31 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Assignment } from 'src/app/models/assignment.model';
 import { Subject } from 'src/app/models/subject.model';
 import { SubjectsService } from 'src/app/shared/subject.service';
+import {FormBuilder, Validators} from '@angular/forms';
 @Component({
   selector: 'app-add-assignment',
   templateUrl: './add-assignment.component.html',
   styleUrls: ['./add-assignment.component.css']
 })
 export class AddAssignmentComponent implements OnInit {
-  dateRendu!:Date;
-
   subjects: Subject[] = [];
 
-  constructor(private assignmentsService : AssignmentsService, private subjectsService : SubjectsService, private _snackBar: MatSnackBar) {}
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required],
+  });
+  secondFormGroup = this._formBuilder.group({
+    secondCtrl: ['', Validators.required],
+  });
+  thirdFormGroup = this._formBuilder.group({
+    thirdCtrl: ['', Validators.required],
+  });
+
+  constructor(
+    private assignmentsService : AssignmentsService, 
+    private subjectsService : SubjectsService, 
+    private _snackBar: MatSnackBar, 
+    private _formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.getSubjects();
@@ -27,10 +41,10 @@ export class AddAssignmentComponent implements OnInit {
     });
   }
 
-  onSubmit(nom:string, subject:Subject) {
+  onSubmit(nom:string, dateRendu:string, subject:Subject) {
     const newAssignment = new Assignment();
     newAssignment.nom = nom;
-    newAssignment.dateRendu = this.dateRendu.toISOString();
+    newAssignment.dateRendu = dateRendu;
     newAssignment.rendu = false;
     newAssignment.subject = subject;
     this.assignmentsService.createAssignment(newAssignment).subscribe((message) => {

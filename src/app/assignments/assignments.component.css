@@ -72,3 +72,27 @@ tr.element-row:not(.expanded-row):active {
   margin-right: 10px;
   line-height: 1.5;
 }
+.subject-preview{
+  max-height:500px;
+  max-width:500px;
+  margin: 1%;
+  border-radius: 15px;
+}
+.user-preview{
+  max-height:50px;
+  max-width:50px;
+  margin: 1%;
+  border-radius: 15px;
+}
+.comment{
+  padding: 1%;
+  border-radius: 15px;
+  background-color: #eceff1;
+}
+.rendu{
+  color: green;
+}
+.user{
+  display: flex;
+  align-items: center;
+}
