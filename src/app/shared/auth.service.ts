@@ -14,7 +14,6 @@ export class AuthService {
     USER: 'user',
     GUEST: 'guest',
   };
-  jwtToken: string | null = null;
   currentUser: User = {
     username: 'guest',
     type: this.userTypes.GUEST,
@@ -25,13 +24,22 @@ export class AuthService {
   logIn(logInfos: { username: string; password: string }): Observable<any> {
     return this.http.post<any>(`${this.uri}/login`, logInfos);
   }
-
+  setToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+  getToken() {
+    return localStorage.getItem('token');
+  }
+  deleteToken() {
+    localStorage.removeItem('token');
+  }
   logout() {
     this.currentUser = {
       username: 'guest',
       password: 'guest',
       type: this.userTypes.GUEST,
     };
+    localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
   isAdmin():boolean {
@@ -39,6 +47,12 @@ export class AuthService {
   }
   isLogged():boolean  {
     return (this.currentUser.type === this.userTypes.USER || this.currentUser.type === this.userTypes.ADMIN)
+  }
+  isUser():boolean {
+    return this.currentUser.type === this.userTypes.USER;
+  }
+  isGuest():boolean {
+    return this.currentUser.type === this.userTypes.GUEST;
   }
   getCurrentUser(){
     return this.currentUser;

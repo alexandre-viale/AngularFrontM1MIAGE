@@ -40,7 +40,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatStepperModule} from '@angular/material/stepper';
 import {ReactiveFormsModule } from '@angular/forms';
 const appRoutes: Routes = [
-  { path: 'home', component: AssignmentsComponent, canActivate: [AuthGuard] },
+  { path: '', component: AssignmentsComponent },
   {
     path: 'add/assignment',
     component: AddAssignmentComponent,
@@ -52,17 +52,12 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'assignment/:id',
-    component: AssignmentDetailComponent,
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'assignment/:id/edit',
     component: EditAssignmentComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: '',
+    path: 'login',
     component: LoginPageComponent,
   },
 ];

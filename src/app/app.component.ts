@@ -21,4 +21,7 @@ export class AppComponent{
     this.router.navigate(['']);
     this._snackBar.open("Deconnecté avec succès", "Fermer");
   }
+  logIn() {
+    this.router.navigate(['login']);
+  }
 }

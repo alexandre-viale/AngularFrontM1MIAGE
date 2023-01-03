@@ -9,15 +9,15 @@
   </mat-drawer>
   <mat-toolbar>
     <mat-toolbar-row>
-      <button *ngIf="isLogged" mat-icon-button (click)="drawer.toggle()">
+      <button  mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
       
       <h1>{{title}}</h1>
       
       <div class="actions">
-        <a *ngIf="isLogged" routerLink="/home"><button mat-button><mat-icon>home</mat-icon></button></a>
-        <h4 *ngIf="!isLogged; else logoutButton">Non connecté</h4>
+        <a routerLink="/"><button mat-button><mat-icon>home</mat-icon></button></a>
+        <button mat-raised-button *ngIf="!isLogged; else logoutButton" (click)="logIn()">Connexion</button>
         <ng-template #logoutButton>
           <button mat-raised-button (click)="logOut()">Déconnexion</button>
         </ng-template>

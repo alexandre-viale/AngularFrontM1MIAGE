@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
 @Component({
@@ -11,7 +12,7 @@ export class LoginPageComponent implements OnInit {
   password: string = '';
   username: string = '';
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.authService.isLogged() && this.router.navigate(['/home']);
@@ -22,19 +23,18 @@ export class LoginPageComponent implements OnInit {
       {
         next: (response) => {
           this.authService.currentUser = response.user;
-          this.authService.jwtToken = response.accessToken;
-          localStorage.setItem('token', response.accessToken);
-          this.router.navigate(['/home']);
+          this.authService.setToken(response.accessToken)
+          this.router.navigate(['']);
         },
         error: (err) => {
           if(err.status === 401) {
-            alert('Mauvais nom d\'utilisateur ou mot de passe');
+            this._snackBar.open("Mot de passe incorrect", "Fermer");
           }
           if(err.status === 500) {
-            alert('Erreur serveur');
+            this._snackBar.open("Erreur serveur", "Fermer");
           }
           if(err.status === 404) {
-            alert('Utilisateur non trouvé');
+            this._snackBar.open("Utilisateur non trouvé", "Fermer");
           }
         }
       }
