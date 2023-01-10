@@ -9,6 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { UsersService } from '../shared/users.service';
 import { AuthService } from '../shared/auth.service';
+import { User } from '../models/user.model';
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',
@@ -39,6 +40,9 @@ export class AssignmentsComponent implements OnInit {
   expandedSubjectPreview!: string;
   expandedSubjectTeacherName!: string;
   expandedSubjectTeacherPreview!: string;
+  expandedSubjectOwnerName!: string;
+  expandedSubjectOwnerPreview!: string;
+  expandedOwner!: User;
   finishedFetching = false;
   dataSource!: MatTableDataSource<Assignment>;
   displayRendu: boolean = false;
@@ -50,7 +54,6 @@ export class AssignmentsComponent implements OnInit {
   constructor(private assignmentsService: AssignmentsService, private subjectsService: SubjectsService, private usersService: UsersService, private  datePipe: DatePipe, private dialog: MatDialog, private authService: AuthService) { }
   
   ngOnInit(): void {
-    
     this.getAssignments(this.page, this.limit);
   }
 
@@ -104,6 +107,13 @@ export class AssignmentsComponent implements OnInit {
       this.expandedSubjectName = subject.name;
       this.expandedSubjectPreview = subject.preview;
       this.getUser(subject.teacher);
+    });
+  }
+
+  getOwner(id: string){
+    this.usersService.getUser(id).subscribe(user => {
+      this.expandedSubjectOwnerName = user.username;
+      this.expandedSubjectOwnerPreview = user.preview;
     });
   }
 
