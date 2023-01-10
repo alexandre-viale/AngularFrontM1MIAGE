@@ -5,6 +5,7 @@ import { Assignment } from 'src/app/models/assignment.model';
 import { Subject } from 'src/app/models/subject.model';
 import { SubjectsService } from 'src/app/shared/subject.service';
 import {FormBuilder, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-assignment',
   templateUrl: './add-assignment.component.html',
@@ -27,7 +28,8 @@ export class AddAssignmentComponent implements OnInit {
     private assignmentsService : AssignmentsService, 
     private subjectsService : SubjectsService, 
     private _snackBar: MatSnackBar, 
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -47,9 +49,9 @@ export class AddAssignmentComponent implements OnInit {
     newAssignment.dateRendu = dateRendu;
     newAssignment.rendu = false;
     newAssignment.subject = subject;
-    this.assignmentsService.createAssignment(newAssignment).subscribe((message) => {
-      console.log(message);
+    this.assignmentsService.createAssignment(newAssignment).subscribe(() => {
       this._snackBar.open("Devoir \"" + nom + "\" créé", "Fermer");
+      this.router.navigate(['']);
     });
   }
 }

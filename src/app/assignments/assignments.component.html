@@ -1,10 +1,10 @@
 <div>
-  <a routerLink="/add/assignment">
+  <a *ngIf="isLogged()" routerLink="/add/assignment">
     <button  mat-flat-button color="accent">
       Ajouter un devoir
     </button>
   </a>
-  <a routerLink="/add/subject">
+  <a *ngIf="isLogged()" routerLink="/add/subject">
     <button [ngStyle]="{'margin-left': '10px'}" mat-flat-button color="accent">
       Ajouter une matière
     </button>
@@ -73,8 +73,8 @@
                   <p class="comment">{{element.comment}}</p>
                 </div>
               </div>
-              <button mat-raised-button color="primary" routerLink="/assignment/{{element._id}}/edit">Modifier</button>
-              <button mat-raised-button color="warn" [ngStyle]="{'margin-left': '10px'}" (click)="openDeleteDialog(element)">Supprimer</button>
+              <button *ngIf="isLogged()" mat-raised-button color="primary" routerLink="/assignment/{{element._id}}/edit">Modifier</button>
+              <button *ngIf="isAdmin()" mat-raised-button color="warn" [ngStyle]="{'margin-left': '10px'}" (click)="openDeleteDialog(element)">Supprimer</button>
              </div>
         </div>
       </td>
@@ -88,7 +88,6 @@
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
   </table>
   <div class="table-footer">
-    
     <mat-paginator [length]="totalDocs"
     [pageSize]="limit"
     [pageSizeOptions]="[5, 10, 25, 100]"

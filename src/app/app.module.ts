@@ -35,11 +35,12 @@ import { DatePipe } from '@angular/common'
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DeleteDialogComponent } from './assignments/assignments.component';
-import { MatSortModule } from '@angular/material/sort'
+import { MatSortModule } from '@angular/material/sort';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatStepperModule} from '@angular/material/stepper';
 import {ReactiveFormsModule } from '@angular/forms';
 const appRoutes: Routes = [
-  { path: 'home', component: AssignmentsComponent, canActivate: [AuthGuard] },
+  { path: '', component: AssignmentsComponent },
   {
     path: 'add/assignment',
     component: AddAssignmentComponent,
@@ -51,17 +52,12 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'assignment/:id',
-    component: AssignmentDetailComponent,
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'assignment/:id/edit',
     component: EditAssignmentComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: '',
+    path: 'login',
     component: LoginPageComponent,
   },
 ];
@@ -103,6 +99,7 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatDialogModule,
     MatSortModule,
+    MatSidenavModule,
     MatStepperModule,
     ReactiveFormsModule
   ],

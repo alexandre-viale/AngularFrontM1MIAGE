@@ -1,13 +1,31 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <a routerLink="/home"><button mat-button><mat-icon>home</mat-icon></button></a>
-    <h1>{{title}}</h1>
-    <h4 *ngIf="!isLogged; else logoutButton">Non connecté</h4>
-    <ng-template #logoutButton>
-      <button mat-raised-button (click)="logOut()" >
-        Déconnexion</button></ng-template>
-  </mat-toolbar-row>
-</mat-toolbar>
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
+<mat-drawer-container autosize>
+  <mat-drawer  #drawer mode="side">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home">Accueil</a>
+      <a mat-list-item routerLink="/assignments">Devoirs</a>
+      <a mat-list-item routerLink="/subjects">Matières</a>
+      <a mat-list-item routerLink="/students">Élèves</a>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <button  mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      
+      <h1>{{title}}</h1>
+      
+      <div class="actions">
+        <a routerLink="/"><button mat-button><mat-icon>home</mat-icon></button></a>
+        <button mat-raised-button *ngIf="!isLogged; else logoutButton" (click)="logIn()">Connexion</button>
+        <ng-template #logoutButton>
+          <button mat-raised-button (click)="logOut()">Déconnexion</button>
+        </ng-template>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>
+

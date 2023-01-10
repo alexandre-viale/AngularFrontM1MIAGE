@@ -8,6 +8,7 @@ import { SubjectsService } from '../shared/subject.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { UsersService } from '../shared/users.service';
+import { AuthService } from '../shared/auth.service';
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',
@@ -46,7 +47,7 @@ export class AssignmentsComponent implements OnInit {
   sortName: string = '';
   
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private assignmentsService: AssignmentsService, private subjectsService: SubjectsService, private usersService: UsersService, private  datePipe: DatePipe, private dialog: MatDialog) { }
+  constructor(private assignmentsService: AssignmentsService, private subjectsService: SubjectsService, private usersService: UsersService, private  datePipe: DatePipe, private dialog: MatDialog, private authService: AuthService) { }
   
   ngOnInit(): void {
     
@@ -92,7 +93,12 @@ export class AssignmentsComponent implements OnInit {
       }
     });
   }
-
+  isLogged() {
+    return this.authService.isLogged();
+  }
+  isAdmin() {
+    return this.authService.isAdmin();
+  }
   getSubject(id: string){
     this.subjectsService.getSubject(id).subscribe(subject => {
       this.expandedSubjectName = subject.name;
@@ -110,7 +116,7 @@ export class AssignmentsComponent implements OnInit {
   
   toggleRendu() {
     this.displayRendu = !this.displayRendu;
-    this.getAssignments(this.page, this.limit);
+    this.getAssignments( 0, this.limit);
   }
 
   onSort(event: any) {

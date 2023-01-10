@@ -2,5 +2,23 @@
   margin: 10px 20px 0px 20px;
 }
 mat-toolbar-row{
+  background-color: #3f51b5;
+  display: flex;
   justify-content: space-between;
+  color: white;
+}
+mat-drawer-container{
+  height: 100vh;
+  background-color: white;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.actions button {
+  margin: 0 10px;
+}
+mat-drawer {
+  min-width: 250px;
 }

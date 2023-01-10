@@ -9,7 +9,7 @@ export class UsersService {
   uri = 'http://localhost:8010/api/users';
   httpOptions = {
     headers: new HttpHeaders({
-     'Authorization': 'Bearer ' + this.auth.jwtToken,
+     'Authorization': 'Bearer ' + this.auth.getToken(),
     }),
    };
 
