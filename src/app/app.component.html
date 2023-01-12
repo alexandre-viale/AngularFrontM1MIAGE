@@ -1,10 +1,10 @@
 <mat-drawer-container autosize>
   <mat-drawer  #drawer mode="side">
     <mat-nav-list>
-      <a mat-list-item routerLink="/home">Accueil</a>
-      <a mat-list-item routerLink="/assignments">Devoirs</a>
-      <a mat-list-item routerLink="/subjects">Matières</a>
-      <a mat-list-item routerLink="/students">Élèves</a>
+      <a mat-list-item routerLink="/">Accueil</a>
+      <a mat-list-item *ngIf="isLogged" routerLink="/add/assignment">Ajouter un devoir</a>
+      <a mat-list-item *ngIf="isLogged" routerLink="/add/subject">Ajouter une matière</a>
+      <a mat-list-item routerLink="/subjects">Liste des matières</a>
     </mat-nav-list>
   </mat-drawer>
   <mat-toolbar>

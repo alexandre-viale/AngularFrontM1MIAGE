@@ -15,7 +15,7 @@ export class LoginPageComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.authService.isLogged() && this.router.navigate(['/home']);
+    this.authService.isLogged() && this.router.navigate(['/']);
   }
 
   async onLogin() {

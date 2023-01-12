@@ -29,14 +29,14 @@ export class AssignmentDetailComponent implements OnInit {
   onAssignmentSent() {
     this.assignmentsService.updateAssignment(this.assignmentTransmitted).subscribe((message) => {
       console.log(message);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/']);
     });
   }
 
   onAssignmentDeleted() {
     this.assignmentsService.deleteAssignment(this.assignmentTransmitted).subscribe(() => {
       this.assignmentTransmitted = undefined;
-      this.router.navigate(['/home']);
+      this.router.navigate(['/']);
     });
   }
 

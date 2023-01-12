@@ -1,15 +1,3 @@
-<div>
-  <a *ngIf="isLogged()" routerLink="/add/assignment">
-    <button  mat-flat-button color="accent">
-      Ajouter un devoir
-    </button>
-  </a>
-  <a *ngIf="isLogged()" routerLink="/add/subject">
-    <button [ngStyle]="{'margin-left': '10px'}" mat-flat-button color="accent">
-      Ajouter une matière
-    </button>
-  </a>
-</div>
 <mat-spinner *ngIf="!finishedFetching"></mat-spinner>
 <div class="mat-elevation-z3 table-container">
   <div class="table-header">

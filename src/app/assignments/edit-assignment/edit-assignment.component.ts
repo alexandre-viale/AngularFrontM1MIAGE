@@ -76,7 +76,7 @@ thirdFormGroup = this._formBuilder.group({
       .updateAssignment(this.assignment)
       .subscribe((message) => {
         console.log(message);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
         this._snackBar.open("Devoir édité avec succès", "Fermer");
     });
   }
