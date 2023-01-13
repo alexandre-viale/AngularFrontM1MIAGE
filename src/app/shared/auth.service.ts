@@ -7,7 +7,7 @@ import { User } from '../models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
-  uri = 'http://localhost:8010/api/user';
+  uri = 'https://backm1miage.onrender.com/api/user';
 
   userTypes = {
     ADMIN: 'admin',

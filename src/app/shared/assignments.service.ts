@@ -6,10 +6,11 @@ import { Assignment } from '../models/assignment.model';
   providedIn: 'root',
 })
 export class AssignmentsService {
-  uri = 'http://localhost:8010/api/assignments';
+  uri = 'https://backm1miage.onrender.com/api/assignments';
   httpOptions = {
     headers: new HttpHeaders({
      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+     'Access-Control-Allow-Origin': '*'
     }),
    };
   constructor(

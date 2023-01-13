@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class UsersService {
-  uri = 'http://localhost:8010/api/users';
+  uri = 'https://backm1miage.onrender.com/api/users';
   httpOptions = {
     headers: new HttpHeaders({
      'Authorization': 'Bearer ' + this.auth.getToken(),
