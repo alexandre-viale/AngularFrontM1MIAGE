@@ -1,4 +1,5 @@
 import { Subject } from "./subject.model";
+import { User } from "./user.model";
 
 export class Assignment {
   _id!: string;
@@ -8,4 +9,5 @@ export class Assignment {
   grade?: number;
   subject!: Subject;
   comment?: string;
+  owner!: User;
 }

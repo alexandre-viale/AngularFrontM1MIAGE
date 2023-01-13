@@ -54,6 +54,10 @@
                   <p>Responsable : <strong>{{expandedSubjectTeacherName}}</strong></p>
                   <img class="user-preview" src="{{expandedSubjectTeacherPreview}}" alt="Prévisualisation de la photo du professeur">
                 </div>
+                <div class="user">
+                  <p>Devoir créé par : <strong>{{expandedSubjectOwnerName}}</strong></p>
+                  <img class="user-preview" src="{{expandedSubjectOwnerPreview}}" alt="Prévisualisation de la photo de l'auteur">
+                </div>
                 <img class="subject-preview" src="{{expandedSubjectPreview}}" alt="Prévisualisation de la matière">
                 <h2 *ngIf="element.grade">Note : {{element.grade}}/20</h2>
                 <div *ngIf="element.comment">
@@ -71,7 +75,7 @@
     <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
         class="element-row"
         [class.expanded-row]="expandedElement === element"
-        (click)="expandedElement = expandedElement === element ? null : element; getSubject(element.subject)">
+        (click)="expandedElement = expandedElement === element ? null : element; getSubject(element.subject); getOwner(element.owner)">
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
   </table>
