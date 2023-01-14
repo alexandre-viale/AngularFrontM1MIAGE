@@ -21,7 +21,6 @@ export class AddSubjectComponent implements OnInit {
     newSubject.teacher = this.authService.currentUser;
     newSubject.preview = this.preview;
     this.subjectsService.createSubject(newSubject).subscribe((message) => {
-      console.log(message);
       this._snackBar.open("Matière \"" + nom + "\" créée", "Fermer");
     });
   }
