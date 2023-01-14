@@ -29,7 +29,7 @@
  ## Installation
  
  1. Angular digital workspace requires [Node.js](https://nodejs.org/) to run.
- 2. Setup and launch the [Backend]() project.
+ 2. Setup and launch the [Backend](https://github.com/alexandre-viale/AngularBackM1MIAGE) project.
  3. Download the project from this repository and extract it in your computer.
  4. Open a command line or terminal window and navigate to the project directory. Then, run the following command to install the project's dependencies:
  
@@ -44,8 +44,8 @@
  6. The project will now be running on your local development environment. You can view the project in your browser at [localhost:4100](http://localhost:4100/).
  
  ## Development team
- - [VIALE Alexandre](),
- - [LEDIG Ian]().
+ - [VIALE Alexandre](https://github.com/alexandre-viale),
+ - [LEDIG Ian](https://github.com/ian-ledig).
  
  ## License
  
