@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  uri = 'https://backm1miage.onrender.com/api/users';
+  uri = `${environment.apiUrl}/users`;
    httpOptions() {
     return {
       headers: new HttpHeaders({

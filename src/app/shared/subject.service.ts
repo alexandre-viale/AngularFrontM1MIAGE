@@ -3,11 +3,12 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from '../models/subject.model';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class SubjectsService {
-  uri = 'https://backm1miage.onrender.com/api/subjects';
+  uri = `${environment.apiUrl}/subjects`;
   httpOptions() {
     return {
       headers: new HttpHeaders({

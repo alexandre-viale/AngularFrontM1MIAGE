@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  uri = 'https://backm1miage.onrender.com/api/user';
+  uri = `${environment.apiUrl}/user`;
 
   userTypes = {
     ADMIN: 'admin',

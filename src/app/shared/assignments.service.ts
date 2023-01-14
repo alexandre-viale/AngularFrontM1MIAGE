@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Assignment } from '../models/assignment.model';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class AssignmentsService {
-  uri = 'https://backm1miage.onrender.com/api/assignments';
+  uri = `${environment.apiUrl}/assignments`;
   
   constructor(
     private http: HttpClient,
