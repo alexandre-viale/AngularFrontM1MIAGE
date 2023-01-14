@@ -1,7 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Sofia';
+  src: url('./assets/sofia.ttf') format('truetype');
+}
 
 html, body { height: 100%;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Sofia !important; }
+* {
+  font-family: Sofia /* Replace with your custom font */, sans-serif !important; 
+  /* Add !important to overwrite all elements */
+}
+mat-icon {
+  font-family: 'Material Icons' !important;
+}
 a {
   color: inherit;
   text-decoration: none;

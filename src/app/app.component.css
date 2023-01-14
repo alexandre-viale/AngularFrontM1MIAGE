@@ -22,3 +22,12 @@ mat-drawer-container{
 mat-drawer {
   min-width: 250px;
 }
+h1 {
+  font-size: 1.5em;
+  margin: 0;
+}
+.title-icon {
+  margin-right: 10px;
+  position:relative;
+  top: 3px;
+}

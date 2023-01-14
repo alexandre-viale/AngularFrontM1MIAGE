@@ -12,9 +12,7 @@
       <button  mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      
-      <h1>{{title}}</h1>
-      
+      <h1><mat-icon class="title-icon">assignment</mat-icon> {{title}}</h1>
       <div class="actions">
         <a routerLink="/"><button mat-button><mat-icon>home</mat-icon></button></a>
         <button mat-raised-button *ngIf="!isLogged; else logoutButton" (click)="logIn()">Connexion</button>

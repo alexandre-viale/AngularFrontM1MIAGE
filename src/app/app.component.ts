@@ -8,7 +8,7 @@ import { AuthService } from './shared/auth.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent{
-  title = 'Application de gestion des devoirs';
+  title = 'My Study Life';
   showFiller = false;
   constructor(private router: Router, private authService: AuthService, private _snackBar: MatSnackBar) {}
 
