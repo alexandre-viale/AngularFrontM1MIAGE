@@ -1,27 +1,52 @@
-# AssignmentApp
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.2.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+# Angular digital workspace
+ ### Frontend
+ 
+ Angular digital workspace is a website where users can see their assignments, subjects, marks, edit them and admins can manage all the users content.
+ 
+ ## Features
+ 
+ - **Secure JWT login**
+ - **Users permissions**
+ - **Guest mode**
+ - **Users profile** (username, profile picture, ...)
+ - **Assignments list** (sort, search bar and filter)
+ - **Assignments creation** (name, subject, mark, owner, comment)
+ - **Assignments edition**
+ - **Subjects list** (sort, search bar and filter)
+ - **Subjects creation** (name, picture, teacher)
+ - **Subjects edition**
+ - **Actions notification** (snackbar)
+ 
+ ## Tech
+ 
+ Angular digital workspace uses a number of open source projects to work properly:
+ 
+ - [Angular](https://angular.io/) - Typescript development platform.
+ - [Mongoose](https://mongoosejs.com/) - Casting, validation, query building schema-based solution.
+ - [Node.js](https://nodejs.org/) - JavaScript runtime environment.
+ - [Express](http://expressjs.com) - Fast node.js network app framework.
+ 
+ ## Installation
+ 
+ 1. Angular digital workspace requires [Node.js](https://nodejs.org/) to run.
+ 2. Setup and launch the [Backend]() project.
+ 3. Download the project from this repository and extract it in your computer.
+ 4. Open a command line or terminal window and navigate to the project directory. Then, run the following command to install the project's dependencies:
+ 
+```sh
+ npm install
+```
+ 5. Run the following command to start the project:
+ 
+```sh
+ ng serve
+```
+ 6. The project will now be running on your local development environment. You can view the project in your browser at [localhost:4100](http://localhost:4100/).
+ 
+ ## Development team
+ - [VIALE Alexandre](),
+ - [LEDIG Ian]().
+ 
+ ## License
+ 
+ MIT
