@@ -8,11 +8,14 @@ import { AuthService } from './auth.service';
 })
 export class SubjectsService {
   uri = 'https://backm1miage.onrender.com/api/subjects';
-  httpOptions = {
-    headers: new HttpHeaders({
-     'Authorization': 'Bearer ' + this.auth.getToken(),
-    }),
-   };
+  httpOptions() {
+    return {
+      headers: new HttpHeaders({
+       'Authorization': 'Bearer ' + localStorage.getItem('token'),
+       'Access-Control-Allow-Origin': '*'
+      }),
+     };
+  }
 
   constructor(
     private http: HttpClient,
@@ -20,22 +23,22 @@ export class SubjectsService {
   ) {}
 
   getSubjects(): Observable<Subject[]> {
-    return this.http.get<Subject[]>(this.uri, this.httpOptions);
+    return this.http.get<Subject[]>(this.uri, this.httpOptions());
   }
 
   deleteSubject(subject: Subject): Observable<any> {
-    return this.http.delete(`${this.uri}/${subject._id}`, this.httpOptions);
+    return this.http.delete(`${this.uri}/${subject._id}`, this.httpOptions());
   }
 
   createSubject(subject: Subject): Observable<any> {
-    return this.http.post(this.uri, subject, this.httpOptions);
+    return this.http.post(this.uri, subject, this.httpOptions());
   }
 
   getSubject(id: string): Observable<any> {
-    return this.http.get(`${this.uri}/${id}`, this.httpOptions);
+    return this.http.get(`${this.uri}/${id}`, this.httpOptions());
   }
 
   updateAssignment(subject: Subject): Observable<any> {
-    return this.http.put<Subject>(this.uri, subject, this.httpOptions);
+    return this.http.put<Subject>(this.uri, subject, this.httpOptions());
   }
 }

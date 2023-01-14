@@ -7,31 +7,34 @@ import { Assignment } from '../models/assignment.model';
 })
 export class AssignmentsService {
   uri = 'https://backm1miage.onrender.com/api/assignments';
-  httpOptions = {
-    headers: new HttpHeaders({
-     'Authorization': 'Bearer ' + localStorage.getItem('token'),
-     'Access-Control-Allow-Origin': '*'
-    }),
-   };
+  
   constructor(
     private http: HttpClient,
   ) {}
 
+  httpOptions() {
+    return {
+      headers: new HttpHeaders({
+       'Authorization': 'Bearer ' + localStorage.getItem('token'),
+       'Access-Control-Allow-Origin': '*'
+      }),
+     };
+  }
   deleteAssignment(assignment: Assignment): Observable<any> {
     console.log("assignment:", assignment);
-    return this.http.delete(`${this.uri}/${assignment._id}`, this.httpOptions);
+    return this.http.delete(`${this.uri}/${assignment._id}`, this.httpOptions());
   }
 
   createAssignment(assignment: Assignment): Observable<any> {
-    return this.http.post(this.uri, assignment, this.httpOptions);
+    return this.http.post(this.uri, assignment, this.httpOptions());
   }
 
   getAssignment(id: string): Observable<any> {
-    return this.http.get(`${this.uri}/${id}`, this.httpOptions);
+    return this.http.get(`${this.uri}/${id}`, this.httpOptions());
   }
 
   updateAssignment(assignment: Assignment): Observable<any> {
-    return this.http.put<Assignment>(this.uri,assignment, this.httpOptions)
+    return this.http.put<Assignment>(this.uri,assignment, this.httpOptions())
   }
 
   getAssignmentsPaginated(page: number, limit: number, sort: object = {}, filters: object = {}): Observable<any> {
