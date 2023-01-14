@@ -47,7 +47,6 @@ thirdFormGroup = this._formBuilder.group({
   getAssignment() {
     const id = this.route.snapshot.params['id'];
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-      console.log('assignment:', assignment);
       if (!assignment) return;
       this.assignment = assignment;
       this.nomAssignment = assignment.nom;
@@ -75,7 +74,6 @@ thirdFormGroup = this._formBuilder.group({
     this.assignmentsService
       .updateAssignment(this.assignment)
       .subscribe((message) => {
-        console.log(message);
         this.router.navigate(['/']);
         this._snackBar.open("Devoir édité avec succès", "Fermer");
     });

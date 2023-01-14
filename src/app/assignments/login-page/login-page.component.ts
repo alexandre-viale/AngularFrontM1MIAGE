@@ -23,10 +23,7 @@ export class LoginPageComponent implements OnInit {
       {
         next: (response) => {
           this.authService.currentUser = response.user;
-          console.log(response);
           this.authService.setToken(response.accessToken)
-
-          console.log(this.authService.getToken());
           this.router.navigate(['']);
         },
         error: (err) => {

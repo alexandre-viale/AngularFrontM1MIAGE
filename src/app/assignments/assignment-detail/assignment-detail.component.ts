@@ -21,14 +21,12 @@ export class AssignmentDetailComponent implements OnInit {
   getAssignment() {
     const id = this.activatedRoute.snapshot.params['id'];
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-      console.log(assignment);
       this.assignmentTransmitted = assignment;
     });
   }
 
   onAssignmentSent() {
     this.assignmentsService.updateAssignment(this.assignmentTransmitted).subscribe((message) => {
-      console.log(message);
       this.router.navigate(['/']);
     });
   }

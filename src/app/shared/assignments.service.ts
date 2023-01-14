@@ -21,7 +21,6 @@ export class AssignmentsService {
      };
   }
   deleteAssignment(assignment: Assignment): Observable<any> {
-    console.log("assignment:", assignment);
     return this.http.delete(`${this.uri}/${assignment._id}`, this.httpOptions());
   }
 
