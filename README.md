@@ -5,6 +5,9 @@
 
 Angular digital workspace is a website where users can see their assignments, subjects, marks, edit them and admins can manage all the users content.
 
+## Video presenting the app
+ https://youtu.be/IHyzLiQfI7Y
+
 ## Features
 
 -  **Secure JWT login**
